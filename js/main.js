@@ -31,8 +31,8 @@ var getUniqueItem = function (arr) {
   return arr.splice(randomIndex, 1)[0];
 };
 
-// Перемешивает массив. создаю копию (arr.concat), чтобы не менять оригинальный массив. 
-// функция сорт сортирует массив по правилу, которое передаёт функция 0.5 - Math.random().
+// Перемешивает массив. создаю копию (arr.concat), чтобы не менять оригинальный массив
+// функция сорт сортирует массив по правилу, которое передаёт функция 0.5 - Math.random()
 var mixArr = function (arr) {
   var copyArr = arr.concat();
   return copyArr.sort(function () {
@@ -46,8 +46,8 @@ var getRandomItem = function (arr) {
 };
 
 // возвращает массив случайной длинны, со случайными значениями
-// создаю копию, получаю случайное количество элементов из копии массива (случайную длинну = count), создаю конечный массив.
-// на каждой итераци цикла добавляю один новый элемент в массив.  получаю случайный индекс. 
+// создаю копию, получаю случайное количество элементов из копии массива (случайную длинну = count), создаю конечный массив
+// на каждой итераци цикла добавляю один новый элемент в массив.  получаю случайный индекс
 // получаю один случайный элемент из копии массива ( удаляя его из копии, чтобы  в дальнейшем не повторился), пушу в конечный массив
 var getRandomSplice = function (arr) {
   var copyArr = arr.concat();
@@ -70,25 +70,25 @@ var getAds = function () {
       author: {
         avatar: 'img/avatars/user0' + (i + 1) + '.png'
       },
-        offer: {
+      offer: {
         title: getUniqueItem(copyTitleArr),
         address: x + ', ' + y,
         price: randomInt(1000, 1000000),
         type: getRandomItem(typeArr),
         rooms: randomInt(1, 5),
-        quests: randomInt(1, 5), 
+        quests: randomInt(1, 5),
         checkin: randomInt(12, 14) + ': 00',
         checkout: randomInt(12, 14) + ': 00',
         features: getRandomSplice(featuresArr),
         description: ' ',
         photos: mixArr(photoArr)
       },
-        location: {
-          x: x,
-          y: y
-        }
-      });
-    }
+      location: {
+        x: x,
+        y: y
+      }
+    });
+  }
   return ads;
 };
 
