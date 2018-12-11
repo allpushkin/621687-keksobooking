@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 // нахожу блок .map и удаляю класс
 var mapAdverts = document.querySelector('.map');
 mapAdverts.classList.remove('map--faded');
@@ -66,7 +66,7 @@ var getAds = function () {
   for (var i = 0; i < 8; i++) {
     var x = randomInt(0, offsetWidthMap); // х и у получаю до пуша в массив, т.к. необходимо использовать значения в offer.address
     var y = randomInt(130, 630); // если бы получал в location - в address вставить не получилось бы
-    ads.push ({
+    ads.push({
       author: {
         avatar: 'img/avatars/user0' + (i + 1) + '.png'
       },
