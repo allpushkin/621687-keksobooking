@@ -66,30 +66,30 @@ var getAds = function () {
   for (var i = 0; i < 8; i++) {
     var x = randomInt(0, offsetWidthMap); // х и у получаю до пуша в массив, т.к. необходимо использовать значения в offer.address
     var y = randomInt(130, 630); // если бы получал в location - в address вставить не получилось бы
-      ads.push ({
-        author: {
-          avatar: 'img/avatars/user0' + (i + 1) + '.png'
-        },
-          offer: {
-          title: getUniqueItem(copyTitleArr),
-          address: x + ', ' + y,
-          price: randomInt(1000, 1000000),
-          type: getRandomItem(typeArr),
-          rooms: randomInt(1, 5),
-          quests: randomInt(1,5), 
-          checkin: randomInt(12,14) + ':' + 00,
-          checkout: randomInt(12,14) + ':' + 00,
-          features: getRandomSplice(featuresArr),
-          description: ' ',
-          photos: mixArr(photoArr)
-        },
+    ads.push ({
+      author: {
+        avatar: 'img/avatars/user0' + (i + 1) + '.png'
+      },
+        offer: {
+        title: getUniqueItem(copyTitleArr),
+        address: x + ', ' + y,
+        price: randomInt(1000, 1000000),
+        type: getRandomItem(typeArr),
+        rooms: randomInt(1, 5),
+        quests: randomInt(1, 5), 
+        checkin: randomInt(12, 14) + ': 00',
+        checkout: randomInt(12, 14) + ': 00',
+        features: getRandomSplice(featuresArr),
+        description: ' ',
+        photos: mixArr(photoArr)
+      },
         location: {
           x: x,
           y: y
         }
       });
-      }
-    return ads;
+    }
+  return ads;
 };
 
 // записывает данные массива в карточку объекта
