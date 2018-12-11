@@ -9,9 +9,6 @@ var pinsMap = document.querySelector('.map__pins');
 var advertTemplate = document.querySelector('#card').content.querySelector('.map__card');
 // нахожу место, куда вставлять объявление
 var advertCard = document.querySelector('.map');
-// нахожу блоки, которые затем надо очистить и добавить элементы
-var features = document.querySelector('.popup__features');
-var photos = document.querySelector('.popup__photos');
 //Фиксированные значения
 var titleArr = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде']
 // копирую массив, чтобы передавать в функцию getUniqueItem, забирать ( удалять), по одному значению из массива на каждой итерации в цикле.
@@ -98,30 +95,30 @@ var getAds = function () {
 // записывает данные массива в карточку объекта
 var renderAdvert = function (advert) {
   var advertElement = advertTemplate.cloneNode(true);
-  advertElement.querySelector('.popup__avatar').src = ads[0].avatar;
-  advertElement.querySelector('.popup__title').textContent = ads[1].title;
-  advertElement.querySelector('.popup__text--address').textContent = ads[1].address;
-  advertElement.querySelector('.popup__text--price').textContent = ads[1].price + '₽/ночь';
-  advertElement.querySelector('.popup__text--capacity').textContent = ads[1].rooms + ' комнаты для ' + ads[1].guests + ' гостей';
-  advertElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + ads[1].checkin + ', выезд до ' + ads[1].checkout;
+  advertElement.querySelector('.popup__avatar').src = advert.author.avatar;
+  advertElement.querySelector('.popup__title').textContent = advert.offer.title;
+  advertElement.querySelector('.popup__text--address').textContent = advert.offer.address;
+  advertElement.querySelector('.popup__text--price').textContent = advert.offer.price + '₽/ночь';
+  advertElement.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
+  advertElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
   // прежде чем добавлять новые элементы, удаляю все старые дочерние.
-  features.innerHTML = '';
+  advertElement.querySelector('.popup__features').innerHTML = '';
   var fragment = document.createDocumentFragment();
-  for(var i = 0; i < ads[1].features.length; i++ ) {
-  var featureClass = ads[1].features[i]; // получаю второй сласс класс в соответствии с шаблоном в виде конкретного элемента массива
+  for(var i = 0; i < advert.offer.features.length; i++ ) {
+  var featureClass = advert.offer.features[i]; // получаю второй сласс класс в соответствии с шаблоном в виде конкретного элемента массива
   var featureElement = document.createElement('li');
   featureElement.classList.add('popup__feature', 'popup__feature--' + featureClass);
   fragment.appendChild(featureElement);
   }
-  features.appendChild(fragment);
+  advertElement.querySelector('.popup__features').appendChild(fragment);
 
-  advertElement.querySelector('.popup__description').textContent = ads[1].description; 
+  advertElement.querySelector('.popup__description').textContent = advert.offer.description; 
   // прежде чем добавлять новые элементы, удаляю все старые дочерние. 
-  photos.innerHTML = '';
+  advertElement.querySelector('.popup__photos').innerHTML = '';
   var photoFragment = document.createDocumentFragment();
-  for(var i = 0; i < ads[1].photos.length; i++) {
+  for(var i = 0; i < advert.offer.photos.length; i++) {
     var photoElement = document.createElement('img');
-    var photoAddress = ads[1].photos[i]; // получаю адрес в виде конкретного значения элемента массива
+    var photoAddress = advert.offer.photos[i]; // получаю адрес в виде конкретного значения элемента массива
     photoElement.classList.add('popup__photo');
     photoElement.src = photoAddress;
     photoElement.alt = 'Фотография жилья';
@@ -129,28 +126,28 @@ var renderAdvert = function (advert) {
     photoElement.height = 40;
     photoFragment.appendChild(photoElement);
   }
-  photos.appendChild(photoFragment);
+   advertElement.querySelector('.popup__photos').appendChild(photoFragment);
 };
 
-var renderPin = function (pin) {
+var renderPin = function (advert) {
   var pinElement = pinTemplate.cloneNode(true);
-  pinElement.style = 'left: ' + ads[2].x + 'px;' + ' top: ' + ads[2].y + 'px;';
-  pinElement.querySelector('img').src = ads[0].avatar;
-  pinElement.querySelector('img').alt = ads[1].title;
+  pinElement.style = 'left: ' + advert.location.x + 'px;' + ' top: ' + advert.location.y + 'px;';
+  pinElement.querySelector('img').src = advert.author.avatar;
+  pinElement.querySelector('img').alt = advert.offer.title;
 };
 
 var allAds = getAds();
 
 // Отрисовывает объявления
 var advertFragment = document.createDocumentFragment();
-for (var i = 0; i < getAds.length; i++) {
+for (var i = 0; i < allAds.length; i++) {
   advertFragment.appendChild(renderAdvert(allAds[i])); 
 }
 advertCard.appendChild(advertFragment);
 
 // отрисовывает метку
 var pinFragment = document.createDocumentFragment();
-for (var i = 0; i < getAds.length; i++) {
+for (var i = 0; i < allAds.length; i++) {
   pinFragment.appendChild(renderPin(allAds[i]));
 }
 pinsMap.appendChild(pinFragment);
