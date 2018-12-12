@@ -76,7 +76,7 @@ var getAds = function () {
         price: randomInt(1000, 1000000),
         type: getRandomItem(typeArr),
         rooms: randomInt(1, 5),
-        quests: randomInt(1, 5),
+        guests: randomInt(1, 5),
         checkin: randomInt(12, 14) + ': 00',
         checkout: randomInt(12, 14) + ': 00',
         features: getRandomSplice(featuresArr),
@@ -93,7 +93,7 @@ var getAds = function () {
 };
 
 // записывает данные массива в карточку объекта
-var renderAdvert = function (advert) {
+var getCardElement = function (advert) {
   var advertElement = advertTemplate.cloneNode(true);
   advertElement.querySelector('.popup__avatar').src = advert.author.avatar;
   advertElement.querySelector('.popup__title').textContent = advert.offer.title;
@@ -118,7 +118,7 @@ var renderAdvert = function (advert) {
   var photoFragment = document.createDocumentFragment();
   for (var j = 0; j < advert.offer.photos.length; j++) {
     var photoElement = document.createElement('img');
-    var photoAddress = advert.offer.photos[i]; // получаю адрес в виде конкретного значения элемента массива
+    var photoAddress = advert.offer.photos[j]; // получаю адрес в виде конкретного значения элемента массива
     photoElement.classList.add('popup__photo');
     photoElement.src = photoAddress;
     photoElement.alt = 'Фотография жилья';
@@ -127,28 +127,29 @@ var renderAdvert = function (advert) {
     photoFragment.appendChild(photoElement);
   }
   advertElement.querySelector('.popup__photos').appendChild(photoFragment);
+  return advertElement;
 };
 
-var renderPin = function (advert) {
+var getPinElement = function (advert) {
   var pinElement = pinTemplate.cloneNode(true);
-  pinElement.style = 'left: ' + advert.location.x + 'px;' + ' top: ' + advert.location.y + 'px;';
+  pinElement.style.top = advert.location.y + 'px';
+  pinElement.style.left = advert.location.x + 'px';
+
   pinElement.querySelector('img').src = advert.author.avatar;
   pinElement.querySelector('img').alt = advert.offer.title;
+  return pinElement;
 };
 
 var allAds = getAds();
-
+var filters = document.querySelector('.map__filters-container');
 // Отрисовывает объявления
 var advertFragment = document.createDocumentFragment();
-for (var i = 0; i < allAds.length; i++) {
-  advertFragment.appendChild(renderAdvert(allAds[i]));
-}
-advertCard.appendChild(advertFragment);
+advertFragment.appendChild(getCardElement(allAds[0]));
+advertCard.insertBefore(advertFragment, filters);
 
 // отрисовывает метку
 var pinFragment = document.createDocumentFragment();
 for (var j = 0; j < allAds.length; j++) {
-  pinFragment.appendChild(renderPin(allAds[i]));
+  pinFragment.appendChild(getPinElement(allAds[j]));
 }
 pinsMap.appendChild(pinFragment);
-
