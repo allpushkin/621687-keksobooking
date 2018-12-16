@@ -1,7 +1,7 @@
 'use strict';
 // нахожу блок .map и удаляю класс
 var mapAdverts = document.querySelector('.map');
-mapAdverts.classList.remove('map--faded');
+// // // mapAdverts.classList.remove('map--faded')
 // нахожу шаблон метки
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 // нахожу место, куда вставлять метку
@@ -137,7 +137,22 @@ var getPinElement = function (advert) {
 
   pinElement.querySelector('img').src = advert.author.avatar;
   pinElement.querySelector('img').alt = advert.offer.title;
+
+  pinElement.addEventListener('click', function () {
+    renderCard(advert);
+  });
   return pinElement;
+};
+
+
+var renderCard = function (advert) {
+  var сard = mapAdverts.querySelector('.map__card');
+  if (сard) {
+    mapAdverts.removeChild(сard);
+  } // проверить есть ли ребёнок, прежде чем удалить. ребёнок - карточка.
+  advertFragment.appendChild(getCardElement(advert));
+  advertCard.insertBefore(advertFragment, filters);
+  openCard();
 };
 
 var allAds = getAds();
@@ -153,3 +168,92 @@ for (var j = 0; j < allAds.length; j++) {
   pinFragment.appendChild(getPinElement(allAds[j]));
 }
 pinsMap.appendChild(pinFragment);
+
+// zadanie 2
+var adForm = document.querySelector('.ad-form');
+var adFormFieldset = adForm.querySelectorAll('fieldset');
+var mapFilters = document.querySelector('.map__filters');
+var mapFiltersSelect = mapFilters.querySelectorAll('select');
+var mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
+var mapPinMain = document.querySelector('.map__pin--main');
+var addressInp = document.querySelector('#address');
+var COORDS_X = mapAdverts.offsetWidth / 2;
+var COORDS_Y = 375;
+var popup = document.querySelector('.popup');
+var mapPin = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+var closePopup = popup.querySelector('.popup__close');
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+// координаты метки при открытии страницы, взял координаты центра метки.
+var setCoordinates = function (x, y) {
+  addressInp.value = x + ', ' + y;
+  mapPinMain.style.top = y + 'px';
+  mapPinMain.style.left = x + 'px';
+};
+
+setCoordinates(COORDS_X, COORDS_Y);
+// Добавляет атрибут для неактивного состояния
+var addAttributeDis = function () {
+  for (var i = 0; i < adFormFieldset.length; i++) {
+    adFormFieldset[i].disabled = true;
+  }
+  for (var y = 0; y < mapFiltersSelect.length; y++) {
+    mapFiltersSelect[y].disabled = true;
+  }
+  for (var x = 0; x < mapFiltersFieldset.length; x++) {
+    mapFiltersFieldset[x].disabled = true;
+  }
+};
+
+addAttributeDis();
+// Скрывает попап
+popup.classList.add('hidden');
+// снимает атрибут
+var removeAttributeDis = function () {
+  for (var i = 0; i < adFormFieldset.length; i++) {
+    adFormFieldset[i].disabled = false;
+  }
+  for (var y = 0; y < mapFiltersSelect.length; y++) {
+    mapFiltersSelect[y].disabled = false;
+  }
+  for (var x = 0; x < mapFiltersFieldset.length; x++) {
+    mapFiltersFieldset[x].disabled = false;
+  }
+};
+// снимает атрибут при клике на метку, устанавливает координаты метки
+mapPinMain.addEventListener('mouseup', function (evt) {
+  removeAttributeDis();
+  mapAdverts.classList.remove('map--faded');
+
+  var coords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  addressInp.value = coords.x + ', ' + coords.y;
+});
+
+// функция закрытия на еск
+var popupEscPressHandler = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeCard();
+  }
+};
+
+// Обработчик события, открывает попап, добавляет прослушивание на еск
+var openCard = function () {
+  popup.classList.remove('hidden');
+  document.addEventListener('keydown', popupEscPressHandler);
+};
+
+// Обработчик события, скрывает попап, удаляет прослушивание на еск
+var closeCard = function () {
+  popup.classList.add('hidden');
+  document.removeEventListener('keydown', popupEscPressHandler);
+};
+
+// добавляет прослушивание клика на closePopup перенести в создание карточки
+closePopup.addEventListener('click', function () {
+  closeCard();
+});
