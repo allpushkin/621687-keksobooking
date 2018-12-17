@@ -99,7 +99,8 @@
           </div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
-          <label class="ad-form__label" for="title">Заголовок объявления</label>
+          <label class="ad-form__label" for="title" required>Заголовок объявления</label>
+          <!-- required minlength="30" maxlength="100"-->
           <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
@@ -117,6 +118,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
+          <!--required  type="number" placeholder="1000" minlength="1000" maxlength="1000000"-->
           <input id="price" name="price" type="number" placeholder="5000">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
@@ -247,6 +249,8 @@
       <button class="error__button" href="#">Попробовать снова</button>
     </div>
   </template>
+  <script src="js/pin.js"></script>
+  <script src="js/card.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
