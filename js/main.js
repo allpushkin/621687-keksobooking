@@ -1,15 +1,11 @@
 'use strict';
+
+// // // mapAdverts.classList.remove('map--faded')
 // нахожу блок .map и удаляю класс
 var mapAdverts = document.querySelector('.map');
-mapAdverts.classList.remove('map--faded');
-// нахожу шаблон метки
-var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 // нахожу место, куда вставлять метку
 var pinsMap = document.querySelector('.map__pins');
-// нахожу шаблон объявления
-var advertTemplate = document.querySelector('#card').content.querySelector('.map__card');
-// нахожу место, куда вставлять объявление
-var advertCard = document.querySelector('.map');
+
 // Фиксированные значения
 var titleArr = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 // копирую массив, чтобы передавать в функцию getUniqueItem, забирать ( удалять), по одному значению из массива на каждой итерации в цикле.
@@ -92,64 +88,68 @@ var getAds = function () {
   return ads;
 };
 
-// записывает данные массива в карточку объекта
-var getCardElement = function (advert) {
-  var advertElement = advertTemplate.cloneNode(true);
-  advertElement.querySelector('.popup__avatar').src = advert.author.avatar;
-  advertElement.querySelector('.popup__title').textContent = advert.offer.title;
-  advertElement.querySelector('.popup__text--address').textContent = advert.offer.address;
-  advertElement.querySelector('.popup__text--price').textContent = advert.offer.price + '₽/ночь';
-  advertElement.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
-  advertElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
-  // прежде чем добавлять новые элементы, удаляю все старые дочерние.
-  advertElement.querySelector('.popup__features').innerHTML = '';
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < advert.offer.features.length; i++) {
-    var featureClass = advert.offer.features[i]; // получаю второй сласс класс в соответствии с шаблоном в виде конкретного элемента массива
-    var featureElement = document.createElement('li');
-    featureElement.classList.add('popup__feature', 'popup__feature--' + featureClass);
-    fragment.appendChild(featureElement);
-  }
-  advertElement.querySelector('.popup__features').appendChild(fragment);
+// обработчик клика, проверяет есть ли ребёнок ( карточка объявления), если
+// есть - удаляет. Отрисовывает карточку метки, открывает её
 
-  advertElement.querySelector('.popup__description').textContent = advert.offer.description;
-  // прежде чем добавлять новые элементы, удаляю все старые дочерние
-  advertElement.querySelector('.popup__photos').innerHTML = '';
-  var photoFragment = document.createDocumentFragment();
-  for (var j = 0; j < advert.offer.photos.length; j++) {
-    var photoElement = document.createElement('img');
-    var photoAddress = advert.offer.photos[j]; // получаю адрес в виде конкретного значения элемента массива
-    photoElement.classList.add('popup__photo');
-    photoElement.src = photoAddress;
-    photoElement.alt = 'Фотография жилья';
-    photoElement.width = 45;
-    photoElement.height = 40;
-    photoFragment.appendChild(photoElement);
-  }
-  advertElement.querySelector('.popup__photos').appendChild(photoFragment);
-  return advertElement;
-};
 
-var getPinElement = function (advert) {
-  var pinElement = pinTemplate.cloneNode(true);
-  pinElement.style.top = advert.location.y + 'px';
-  pinElement.style.left = advert.location.x + 'px';
+var allAds = [];
 
-  pinElement.querySelector('img').src = advert.author.avatar;
-  pinElement.querySelector('img').alt = advert.offer.title;
-  return pinElement;
-};
-
-var allAds = getAds();
-var filters = document.querySelector('.map__filters-container');
 // Отрисовывает объявления
-var advertFragment = document.createDocumentFragment();
-advertFragment.appendChild(getCardElement(allAds[0]));
-advertCard.insertBefore(advertFragment, filters);
+
 
 // отрисовывает метку
-var pinFragment = document.createDocumentFragment();
-for (var j = 0; j < allAds.length; j++) {
-  pinFragment.appendChild(getPinElement(allAds[j]));
-}
-pinsMap.appendChild(pinFragment);
+var renderPins = function () {
+  var pinFragment = document.createDocumentFragment();
+  for (var j = 0; j < allAds.length; j++) {
+    pinFragment.appendChild(window.pin.getElement(allAds[j], window.card.render));
+  }
+  pinsMap.appendChild(pinFragment);
+};
+// zadanie 2
+var adForm = document.querySelector('.ad-form');
+var adFormFieldset = adForm.querySelectorAll('fieldset');
+var mapFilters = document.querySelector('.map__filters');
+var mapFiltersSelect = mapFilters.querySelectorAll('select');
+var mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
+var mapPinMain = document.querySelector('.map__pin--main');
+var addressInp = document.querySelector('#address');
+var COORDS_X = mapAdverts.offsetWidth / 2;
+var COORDS_Y = 375;
+
+var PIN_SIZE = 65;
+
+// координаты метки при открытии страницы, взял координаты центра метки.
+var setCoordinates = function (x, y) {
+  addressInp.value = x + ', ' + y;
+  mapPinMain.style.top = (y - PIN_SIZE / 2) + 'px';
+  mapPinMain.style.left = (x - PIN_SIZE / 2) + 'px';
+};
+
+setCoordinates(COORDS_X, COORDS_Y);
+// Добавляет атрибут для неактивного или неактивного состояния
+var toggleFormActivation = function (isActive) {
+  for (var i = 0; i < adFormFieldset.length; i++) {
+    adFormFieldset[i].disabled = !isActive;
+  }
+  for (var y = 0; y < mapFiltersSelect.length; y++) {
+    mapFiltersSelect[y].disabled = !isActive;
+  }
+  for (var x = 0; x < mapFiltersFieldset.length; x++) {
+    mapFiltersFieldset[x].disabled = !isActive;
+  }
+  adForm.classList[isActive ? 'remove' : 'add']('ad-form--disabled');
+};
+
+toggleFormActivation(false);
+
+var toggleMapActivation = function (isActive) {
+  mapAdverts.classList[isActive ? 'remove' : 'add']('map--faded');
+};
+// снимает атрибут при клике на метку, устанавливает координаты метки
+mapPinMain.addEventListener('mouseup', function () {
+  toggleFormActivation(true);
+  toggleMapActivation(true);
+  allAds = getAds();
+  renderPins();
+});
+
