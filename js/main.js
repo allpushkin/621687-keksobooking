@@ -143,19 +143,30 @@ toggleFormActivation(false);
 var toggleMapActivation = function (isActive) {
   mapAdverts.classList[isActive ? 'remove' : 'add']('map--faded');
 };
-// снимает атрибут при клике на метку, устанавливает координаты метки
+// переключает страницу в активное состояние
 mapPinMain.addEventListener('mouseup', function () {
   toggleFormActivation(true);
   toggleMapActivation(true);
+  removePins();
   allAds = getAds();
   renderPins();
 });
+
+// проверяет наличие отрисованных пинов на карте
+var removePins = function () {
+  var pins = pinsMap.querySelectorAll('.map__pin:not(.map__pin--main)');
+  if (pins) {
+    for (var i = 0; i < pins.length; i++) {
+      pinsMap.removeChild(pins[i]);
+    }
+  }
+};
 
 
 var typeHouse = document.querySelector('.ad-form select[name=type]');
 var price = document.querySelector('.ad-form input[name=price]');
 
-// прослушивание значения инпута, при изменении значения меняются мин. и плейсхолде
+// прослушивание значения инпута, при изменении значения меняются мин. и плейсхолдер
 typeHouse.addEventListener('input', function (evt) {
   var target = evt.target;
   if (target.value === 'bungalo') {
@@ -244,5 +255,36 @@ var removeError = function () {
 
 };
 
-renderError();
+//  Полный сброс до исходного состояния
+var totalReset = function () {
+  resetForm();
+
+  window.card.remove();
+
+  removePins();
+
+  toggleFormActivation(false);
+
+  toggleMapActivation(false);
+
+  setCoordinates(COORDS_X, COORDS_Y);
+};
+
+var resetForm = function () {
+  adForm.reset();
+};
+
+// прослушивание на кнопку ресет. сброс
+var resetButton = document.querySelector('.ad-form__reset');
+
+resetButton.addEventListener('click', function () {
+  totalReset();
+});
+
+var submitButton = document.querySelector('.ad-form__submit');
+
+submitButton.addEventListener('click', function () {
+  totalReset();
+});
+
 
