@@ -119,8 +119,6 @@ var setCoordinates = function (x, y) {
   var valueX = x + PIN_SIZE / 2;
   var valueY = y + PIN_SIZE;
   addressInp.value = valueX + ', ' + valueY;
-  //mapPinMain.style.top = (y - PIN_SIZE / 2) + 'px';
-  //mapPinMain.style.left = (x - PIN_SIZE / 2) + 'px';
 };
 
 setCoordinates(COORDS_X, COORDS_Y);
@@ -231,7 +229,8 @@ var resetForm = function () {
 // прослушивание на кнопку ресет. сброс
 var resetButton = document.querySelector('.ad-form__reset');
 
-resetButton.addEventListener('click', function () {
+resetButton.addEventListener('click', function (evt) {
+  evt.preventDefault();
   totalReset();
 });
 
@@ -240,5 +239,6 @@ var submitButton = document.querySelector('.ad-form__submit');
 submitButton.addEventListener('click', function () {
   totalReset();
 });
+
 
 
