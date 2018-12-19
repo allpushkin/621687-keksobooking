@@ -56,19 +56,22 @@
 
   var filters = document.querySelector('.map__filters-container');
 
+  // отрисовывает карточки в разметку, предварительно проверив нет ли уже другой карточки
   var renderCard = function (advert) {
     removeCard();
     mapAdverts.insertBefore(getCardElement(advert), filters);
     document.addEventListener('keydown', popupEscPressHandler);
   };
 
+  // проверяет наличие карточки в разметке и удаляет её
   var removeCard = function () {
-    var сard = mapAdverts.querySelector('.map__card');
-    if (сard) {
-      mapAdverts.removeChild(сard);
+    var card = mapAdverts.querySelector('.map__card');
+    if (card) {
+      mapAdverts.removeChild(card);
     }
   };
 
+  // экспортирует функции
   window.card = {
     render: renderCard,
     remove: removeCard
