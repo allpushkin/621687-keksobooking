@@ -106,9 +106,7 @@ var renderPins = function () {
 // zadanie 2
 var adForm = document.querySelector('.ad-form');
 var adFormFieldset = adForm.querySelectorAll('fieldset');
-var mapFilters = document.querySelector('.map__filters');
-var mapFiltersSelect = mapFilters.querySelectorAll('select');
-var mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
+
 var mapPinMain = document.querySelector('.map__pin--main');
 var addressInp = document.querySelector('#address');
 var COORDS_X = mapAdverts.offsetWidth / 2;
@@ -118,35 +116,30 @@ var PIN_SIZE = 65;
 
 // координаты метки при открытии страницы, взял координаты центра метки.
 var setCoordinates = function (x, y) {
-  addressInp.value = x + ', ' + y;
-  mapPinMain.style.top = (y - PIN_SIZE / 2) + 'px';
-  mapPinMain.style.left = (x - PIN_SIZE / 2) + 'px';
+  var valueX = x + PIN_SIZE / 2;
+  var valueY = y + PIN_SIZE;
+  addressInp.value = valueX + ', ' + valueY;
+  //mapPinMain.style.top = (y - PIN_SIZE / 2) + 'px';
+  //mapPinMain.style.left = (x - PIN_SIZE / 2) + 'px';
 };
 
 setCoordinates(COORDS_X, COORDS_Y);
 // Добавляет атрибут для неактивного или неактивного состояния
-var toggleFormActivation = function (isActive) {
+var toggleActivPage = function (isActive) {
   for (var i = 0; i < adFormFieldset.length; i++) {
     adFormFieldset[i].disabled = !isActive;
   }
-  for (var y = 0; y < mapFiltersSelect.length; y++) {
-    mapFiltersSelect[y].disabled = !isActive;
-  }
-  for (var x = 0; x < mapFiltersFieldset.length; x++) {
-    mapFiltersFieldset[x].disabled = !isActive;
-  }
+
   adForm.classList[isActive ? 'remove' : 'add']('ad-form--disabled');
-};
 
-toggleFormActivation(false);
-
-var toggleMapActivation = function (isActive) {
   mapAdverts.classList[isActive ? 'remove' : 'add']('map--faded');
 };
+
+toggleActivPage(false);
+
 // переключает страницу в активное состояние
 mapPinMain.addEventListener('mouseup', function () {
-  toggleFormActivation(true);
-  toggleMapActivation(true);
+  toggleActivPage(true);
   removePins();
   allAds = getAds();
   renderPins();
@@ -161,43 +154,6 @@ var removePins = function () {
     }
   }
 };
-
-
-var typeHouse = document.querySelector('.ad-form select[name=type]');
-var price = document.querySelector('.ad-form input[name=price]');
-
-// прослушивание значения инпута, при изменении значения меняются мин. и плейсхолдер
-typeHouse.addEventListener('input', function (evt) {
-  var target = evt.target;
-  if (target.value === 'bungalo') {
-    price.min = 0;
-    price.placeholder = 0;
-  } else if (target.value === 'flat') {
-    price.min = 1000;
-    price.placeholder = 1000;
-  } else if (target.value === 'house') {
-    price.min = 5000;
-    price.placeholder = 5000;
-  } else if (target.value === 'palace') {
-    price.min = 10000;
-    price.placeholder = 10000;
-  }
-});
-
-var timeIn = document.querySelector('.ad-form select[name=timein]');
-var timeOut = document.querySelector('.ad-form select[name=timeout]');
-
-timeIn.addEventListener('input', function (evt) {
-  var target = evt.target;
-  if (target.value === '12:00') {
-    timeOut.value = '12:00';
-  } else if (target.value === '13:00') {
-    timeOut.value = '13:00';
-  } else if (target.value === '14:00') {
-    timeOut.value = '14:00';
-  }
-});
-
 
 var main = document.querySelector('main');
 var successTamplate = document.querySelector('#success').content.querySelector('.success');
@@ -263,9 +219,7 @@ var totalReset = function () {
 
   removePins();
 
-  toggleFormActivation(false);
-
-  toggleMapActivation(false);
+  toggleActivPage(false);
 
   setCoordinates(COORDS_X, COORDS_Y);
 };
