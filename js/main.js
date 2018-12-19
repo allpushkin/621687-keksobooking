@@ -1,11 +1,9 @@
 'use strict';
 
-// // // mapAdverts.classList.remove('map--faded')
-// нахожу блок .map и удаляю класс
+// нахожу блок .map
 var mapAdverts = document.querySelector('.map');
 // нахожу место, куда вставлять метку
 var pinsMap = document.querySelector('.map__pins');
-
 // Фиксированные значения
 var titleArr = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 // копирую массив, чтобы передавать в функцию getUniqueItem, забирать ( удалять), по одному значению из массива на каждой итерации в цикле.
@@ -88,14 +86,13 @@ var getAds = function () {
   return ads;
 };
 
+// data.js
+
 // обработчик клика, проверяет есть ли ребёнок ( карточка объявления), если
 // есть - удаляет. Отрисовывает карточку метки, открывает её
 
 
 var allAds = [];
-
-// Отрисовывает объявления
-
 
 // отрисовывает метку
 var renderPins = function () {
@@ -105,6 +102,7 @@ var renderPins = function () {
   }
   pinsMap.appendChild(pinFragment);
 };
+// map.js
 // zadanie 2
 var adForm = document.querySelector('.ad-form');
 var adFormFieldset = adForm.querySelectorAll('fieldset');
@@ -152,4 +150,99 @@ mapPinMain.addEventListener('mouseup', function () {
   allAds = getAds();
   renderPins();
 });
+
+
+var typeHouse = document.querySelector('.ad-form select[name=type]');
+var price = document.querySelector('.ad-form input[name=price]');
+
+// прослушивание значения инпута, при изменении значения меняются мин. и плейсхолде
+typeHouse.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value === 'bungalo') {
+    price.min = 0;
+    price.placeholder = 0;
+  } else if (target.value === 'flat') {
+    price.min = 1000;
+    price.placeholder = 1000;
+  } else if (target.value === 'house') {
+    price.min = 5000;
+    price.placeholder = 5000;
+  } else if (target.value === 'palace') {
+    price.min = 10000;
+    price.placeholder = 10000;
+  }
+});
+
+var timeIn = document.querySelector('.ad-form select[name=timein]');
+var timeOut = document.querySelector('.ad-form select[name=timeout]');
+
+timeIn.addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value === '12:00') {
+    timeOut.value = '12:00';
+  } else if (target.value === '13:00') {
+    timeOut.value = '13:00';
+  } else if (target.value === '14:00') {
+    timeOut.value = '14:00';
+  }
+});
+
+
+var main = document.querySelector('main');
+var successTamplate = document.querySelector('#success').content.querySelector('.success');
+var errorTamplate = document.querySelector('#error').content.querySelector('.error');
+
+// отрисовка сообщения об успешной отправки
+var renderSuccess = function () {
+  var success = successTamplate.cloneNode(true);
+  main.appendChild(success);
+  removeSuccess();
+};
+
+// функция слушает события и удаляет из разметки сообщение об успешной отправке
+var removeSuccess = function () {
+  var successElem = main.querySelector('.success');
+  var popupEcsPressHandler = function (evt) {
+    if (evt.keyCode === 27) {
+      main.removeChild(successElem);
+    }
+  };
+
+  document.addEventListener('click', function () {
+    main.removeChild(successElem);
+  });
+
+  document.addEventListener('keydown', popupEcsPressHandler);
+};
+
+// отрисовка сообщения об ошибке при отправке
+var renderError = function () {
+  var error = errorTamplate.cloneNode(true);
+  main.appendChild(error);
+  removeError();
+};
+
+// функция слушает события и удаляет из разметки сообщение об ошибке
+var removeError = function () {
+  var errorElem = main.querySelector('.error');
+  var errorButton = errorElem.querySelector('.error__button');
+  var popupEcsPressHandler = function (evt) {
+    if (evt.keyCode === 27) {
+      main.removeChild(errorElem);
+    }
+  };
+
+  document.addEventListener('click', function () {
+    main.removeChild(errorElem);
+  });
+
+  errorButton.addEventListener('ckick', function () {
+    main.removeChild(errorElem);
+  });
+
+  document.addEventListener('keydown', popupEcsPressHandler);
+
+};
+
+renderError();
 
