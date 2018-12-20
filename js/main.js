@@ -153,19 +153,19 @@ var removePins = function () {
   }
 };
 
-var main = document.querySelector('main');
-var successTamplate = document.querySelector('#success').content.querySelector('.success');
-var errorTamplate = document.querySelector('#error').content.querySelector('.error');
+// var main = document.querySelector('main');
+// var successTamplate = document.querySelector('#success').content.querySelector('.success');
+// var errorTamplate = document.querySelector('#error').content.querySelector('.error');
 
 // отрисовка сообщения об успешной отправки
-var renderSuccess = function () {
+/* var renderSuccess = function () {
   var success = successTamplate.cloneNode(true);
   main.appendChild(success);
   removeSuccess();
-};
+}; */
 
 // функция слушает события и удаляет из разметки сообщение об успешной отправке
-var removeSuccess = function () {
+/* var removeSuccess = function () {
   var successElem = main.querySelector('.success');
   var popupEcsPressHandler = function (evt) {
     if (evt.keyCode === 27) {
@@ -178,17 +178,17 @@ var removeSuccess = function () {
   });
 
   document.addEventListener('keydown', popupEcsPressHandler);
-};
+}; */
 
 // отрисовка сообщения об ошибке при отправке
-var renderError = function () {
+/* var renderError = function () {
   var error = errorTamplate.cloneNode(true);
   main.appendChild(error);
   removeError();
-};
+}; */
 
 // функция слушает события и удаляет из разметки сообщение об ошибке
-var removeError = function () {
+/* var removeError = function () {
   var errorElem = main.querySelector('.error');
   var errorButton = errorElem.querySelector('.error__button');
   var popupEcsPressHandler = function (evt) {
@@ -207,7 +207,7 @@ var removeError = function () {
 
   document.addEventListener('keydown', popupEcsPressHandler);
 
-};
+}; */
 
 //  Полный сброс до исходного состояния
 var totalReset = function () {
@@ -237,5 +237,4 @@ resetButton.addEventListener('click', function (evt) {
 var submitButton = document.querySelector('.ad-form__submit');
 
 submitButton.addEventListener('click', function () {
-  //totalReset();
 });
