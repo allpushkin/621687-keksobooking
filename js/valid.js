@@ -26,25 +26,32 @@ typeHouse.addEventListener('input', function (evt) {
 
 var timeIn = document.querySelector('.ad-form select[name=timein]');
 var timeOut = document.querySelector('.ad-form select[name=timeout]');
+var timeElements = document.querySelector('.ad-form__element--time');
 
-timeIn.addEventListener('input', function (evt) {
+// прослушиваю fieldset времени, применяется делигирование. при изменении одного из полей, меняется значение другого
+timeElements.addEventListener('input', function (evt) {
+  var timeElem = evt.target;
   var targetValue = evt.target.value;
-  var timeOutValue;
-  switch (targetValue) {
-    case '12:00':
-      timeOutValue = '12:00';
-      break;
-    case '13:00':
-      timeOutValue = '13:00';
-      break;
-    case '14:00':
-      timeOutValue = '14:00';
-      break;
+  var timeValue;
+  //if (timeElem === timeIn) {
+    switch (targetValue) {
+      case '12:00':
+        timeValue = '12:00';
+        break;
+      case '13:00':
+        timeValue = '13:00';
+        break;
+      case '14:00':
+        timeValue = '14:00';
+        break;
+    }
+  if (timeElem === timeIn) {
+  timeOut.value = timeValue;
   }
-  timeOut.value = timeOutValue;
+  timeIn.value = timeValue;
 });
 
-timeOut.addEventListener('input', function (evt) {
+/*timeOut.addEventListener('input', function (evt) {
   var targetValue = evt.target.value;
   var timeInValue;
   switch (targetValue) {
@@ -59,7 +66,7 @@ timeOut.addEventListener('input', function (evt) {
       break;
   }
   timeIn.value = timeInValue;
-});
+}); */
 
 var adForm = document.querySelector('.ad-form');
 var title = adForm.querySelector('input[name=title]');
@@ -73,7 +80,6 @@ title.addEventListener('invalid', function () {
 });
 
 price.addEventListener('invalid', function () {
-
   validPrice();
 });
 
@@ -89,14 +95,16 @@ var validTitle = function () {
   }
 };
 
-// а тут вот значения меняются, получается, нужно сюда вставить значение из условий-зависимостей выше ?
-var validPrice = function () {
+var validPrice = function (evt) {
+  var target = evt.price.value;
   if (price.validity.rangeUnderflow) {
-    price.setCustomValidity('Минимальная цена за ночь');
+    price.setCustomValidity('Минимальная цена за ночь - ' + target);
   } else if (price.validity.rangeOverflow) {
-    price.setCustomValidity('Максимальная цена за ночь — 100 символов');
+    price.setCustomValidity('Максимальная цена за ночь — 1000000');
   } else if (price.validity.valueMissing) {
     price.setCustomValidity('Обязательное поле');
+  } else if (price.validity.typeMismatch) {
+    price.setCustomValidity('Неверный тип значения');
   } else {
     price.setCustomValidity('');
   }
