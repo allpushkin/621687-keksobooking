@@ -28,12 +28,35 @@ var timeIn = document.querySelector('.ad-form select[name=timein]');
 var timeOut = document.querySelector('.ad-form select[name=timeout]');
 
 timeIn.addEventListener('input', function (evt) {
-  var target = evt.target;
-  if (target.value === '12:00') {
-    timeOut.value = '12:00';
-  } else if (target.value === '13:00') {
-    timeOut.value = '13:00';
-  } else if (target.value === '14:00') {
-    timeOut.value = '14:00';
+  var targetValue = evt.target.value;
+  var timeOutValue;
+  switch (targetValue) {
+    case '12:00':
+      timeOutValue = '12:00';
+      break;
+    case '13:00':
+      timeOutValue = '13:00';
+      break;
+    case '14:00':
+      timeOutValue = '14:00';
+      break;
   }
+  timeOut.value = timeOutValue;
+});
+
+timeOut.addEventListener('input', function (evt) {
+  var targetValue = evt.target.value;
+  var timeInValue;
+  switch (targetValue) {
+    case '12:00':
+      timeInValue = '12:00';
+      break;
+    case '13:00':
+      timeInValue = '13:00';
+      break;
+    case '14:00':
+      timeInValue = '14:00';
+      break;
+  }
+  timeIn.value = timeInValue;
 });
