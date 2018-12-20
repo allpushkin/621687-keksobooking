@@ -112,7 +112,7 @@ var addressInp = document.querySelector('#address');
 var COORDS_X = mapAdverts.offsetWidth / 2;
 var COORDS_Y = 375;
 
-var PIN_SIZE = 65;
+var PIN_SIZE = 64;
 
 // координаты метки при открытии страницы, взял координаты центра метки.
 var setCoordinates = function (x, y) {
@@ -237,8 +237,5 @@ resetButton.addEventListener('click', function (evt) {
 var submitButton = document.querySelector('.ad-form__submit');
 
 submitButton.addEventListener('click', function () {
-  totalReset();
+  //totalReset();
 });
-
-
-
