@@ -4,20 +4,24 @@ var price = document.querySelector('.ad-form input[name=price]');
 
 // прослушивание значения инпута, при изменении значения меняются мин. и плейсхолдер
 typeHouse.addEventListener('input', function (evt) {
-  var target = evt.target;
-  if (target.value === 'bungalo') {
-    price.min = 0;
-    price.placeholder = 0;
-  } else if (target.value === 'flat') {
-    price.min = 1000;
-    price.placeholder = 1000;
-  } else if (target.value === 'house') {
-    price.min = 5000;
-    price.placeholder = 5000;
-  } else if (target.value === 'palace') {
-    price.min = 10000;
-    price.placeholder = 10000;
+  var targetValue = evt.target.value;
+  var priceValue;
+  switch (targetValue) {
+    case 'bungalo':
+      priceValue = 0;
+      break;
+    case 'flat':
+      priceValue = 1000;
+      break;
+    case 'house':
+      priceValue = 5000;
+      break;
+    case 'palace':
+      priceValue = 10000;
+      break;
   }
+  price.min = priceValue;
+  price.placeholder = priceValue;
 });
 
 var timeIn = document.querySelector('.ad-form select[name=timein]');
