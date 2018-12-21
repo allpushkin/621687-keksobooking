@@ -1,11 +1,9 @@
 'use strict';
 
-// // // mapAdverts.classList.remove('map--faded')
-// нахожу блок .map и удаляю класс
+// нахожу блок .map
 var mapAdverts = document.querySelector('.map');
 // нахожу место, куда вставлять метку
 var pinsMap = document.querySelector('.map__pins');
-
 // Фиксированные значения
 var titleArr = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 // копирую массив, чтобы передавать в функцию getUniqueItem, забирать ( удалять), по одному значению из массива на каждой итерации в цикле.
@@ -88,14 +86,13 @@ var getAds = function () {
   return ads;
 };
 
+// data.js
+
 // обработчик клика, проверяет есть ли ребёнок ( карточка объявления), если
 // есть - удаляет. Отрисовывает карточку метки, открывает её
 
 
 var allAds = [];
-
-// Отрисовывает объявления
-
 
 // отрисовывает метку
 var renderPins = function () {
@@ -105,51 +102,139 @@ var renderPins = function () {
   }
   pinsMap.appendChild(pinFragment);
 };
+// map.js
 // zadanie 2
 var adForm = document.querySelector('.ad-form');
 var adFormFieldset = adForm.querySelectorAll('fieldset');
-var mapFilters = document.querySelector('.map__filters');
-var mapFiltersSelect = mapFilters.querySelectorAll('select');
-var mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
+
 var mapPinMain = document.querySelector('.map__pin--main');
 var addressInp = document.querySelector('#address');
 var COORDS_X = mapAdverts.offsetWidth / 2;
 var COORDS_Y = 375;
 
-var PIN_SIZE = 65;
+var PIN_SIZE = 64;
 
 // координаты метки при открытии страницы, взял координаты центра метки.
 var setCoordinates = function (x, y) {
-  addressInp.value = x + ', ' + y;
-  mapPinMain.style.top = (y - PIN_SIZE / 2) + 'px';
-  mapPinMain.style.left = (x - PIN_SIZE / 2) + 'px';
+  var valueX = x + PIN_SIZE / 2;
+  var valueY = y + PIN_SIZE;
+  addressInp.value = valueX + ', ' + valueY;
 };
 
 setCoordinates(COORDS_X, COORDS_Y);
 // Добавляет атрибут для неактивного или неактивного состояния
-var toggleFormActivation = function (isActive) {
+var toggleActivPage = function (isActive) {
   for (var i = 0; i < adFormFieldset.length; i++) {
     adFormFieldset[i].disabled = !isActive;
   }
-  for (var y = 0; y < mapFiltersSelect.length; y++) {
-    mapFiltersSelect[y].disabled = !isActive;
-  }
-  for (var x = 0; x < mapFiltersFieldset.length; x++) {
-    mapFiltersFieldset[x].disabled = !isActive;
-  }
+
   adForm.classList[isActive ? 'remove' : 'add']('ad-form--disabled');
-};
 
-toggleFormActivation(false);
-
-var toggleMapActivation = function (isActive) {
   mapAdverts.classList[isActive ? 'remove' : 'add']('map--faded');
 };
-// снимает атрибут при клике на метку, устанавливает координаты метки
+
+toggleActivPage(false);
+
+// переключает страницу в активное состояние
 mapPinMain.addEventListener('mouseup', function () {
-  toggleFormActivation(true);
-  toggleMapActivation(true);
+  toggleActivPage(true);
+  removePins();
   allAds = getAds();
   renderPins();
 });
 
+// проверяет наличие отрисованных пинов на карте
+var removePins = function () {
+  var pins = pinsMap.querySelectorAll('.map__pin:not(.map__pin--main)');
+  if (pins) {
+    for (var i = 0; i < pins.length; i++) {
+      pinsMap.removeChild(pins[i]);
+    }
+  }
+};
+
+// var main = document.querySelector('main');
+// var successTamplate = document.querySelector('#success').content.querySelector('.success');
+// var errorTamplate = document.querySelector('#error').content.querySelector('.error');
+
+// отрисовка сообщения об успешной отправки
+/* var renderSuccess = function () {
+  var success = successTamplate.cloneNode(true);
+  main.appendChild(success);
+  removeSuccess();
+}; */
+
+// функция слушает события и удаляет из разметки сообщение об успешной отправке
+/* var removeSuccess = function () {
+  var successElem = main.querySelector('.success');
+  var popupEcsPressHandler = function (evt) {
+    if (evt.keyCode === 27) {
+      main.removeChild(successElem);
+    }
+  };
+
+  document.addEventListener('click', function () {
+    main.removeChild(successElem);
+  });
+
+  document.addEventListener('keydown', popupEcsPressHandler);
+}; */
+
+// отрисовка сообщения об ошибке при отправке
+/* var renderError = function () {
+  var error = errorTamplate.cloneNode(true);
+  main.appendChild(error);
+  removeError();
+}; */
+
+// функция слушает события и удаляет из разметки сообщение об ошибке
+/* var removeError = function () {
+  var errorElem = main.querySelector('.error');
+  var errorButton = errorElem.querySelector('.error__button');
+  var popupEcsPressHandler = function (evt) {
+    if (evt.keyCode === 27) {
+      main.removeChild(errorElem);
+    }
+  };
+
+  document.addEventListener('click', function () {
+    main.removeChild(errorElem);
+  });
+
+  errorButton.addEventListener('ckick', function () {
+    main.removeChild(errorElem);
+  });
+
+  document.addEventListener('keydown', popupEcsPressHandler);
+
+}; */
+
+//  Полный сброс до исходного состояния
+var totalReset = function () {
+  resetForm();
+
+  window.card.remove();
+
+  removePins();
+
+  toggleActivPage(false);
+
+  setCoordinates(COORDS_X, COORDS_Y);
+};
+
+var resetForm = function () {
+  adForm.reset();
+};
+
+// прослушивание на кнопку ресет. сброс
+var resetButton = document.querySelector('.ad-form__reset');
+
+resetButton.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  totalReset();
+});
+
+var submitButton = document.querySelector('.ad-form__submit');
+
+submitButton.addEventListener('click', function () {
+});
