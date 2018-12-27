@@ -112,12 +112,12 @@ var addressInp = document.querySelector('#address');
 var COORDS_X = mapAdverts.offsetWidth / 2;
 var COORDS_Y = 375;
 
-var PIN_SIZE = 64;
-
+var PIN_SIZE_X = 65;
+var PIN_SIZE_Y = 84;
 // координаты метки при открытии страницы, взял координаты центра метки.
 var setCoordinates = function (x, y) {
-  var valueX = x + PIN_SIZE / 2;
-  var valueY = y + PIN_SIZE;
+  var valueX = Math.round(x + PIN_SIZE_X / 2);
+  var valueY = Math.round(y + PIN_SIZE_Y);
   addressInp.value = valueX + ', ' + valueY;
 };
 
@@ -136,12 +136,77 @@ var toggleActivPage = function (isActive) {
 toggleActivPage(false);
 
 // переключает страницу в активное состояние
-mapPinMain.addEventListener('mouseup', function () {
+mapPinMain.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoord = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var mouseMoveHandler = function (moveEvt) {
+    moveEvt.preventDefault();
+    var shift = {
+      x: startCoord.x - moveEvt.clientX,
+      y: startCoord.y - moveEvt.clientY
+    };
+
+    startCoord = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    var dragY = (mapPinMain.offsetTop - shift.y);
+    //console.log(dragY + 'y');
+    var dragX = (mapPinMain.offsetLeft - shift.x);
+    //console.log(dragX + 'x');
+    if (dragY <= (130 - PIN_SIZE_Y)) {
+      dragY = (130 - PIN_SIZE_Y);
+      console.log(dragY);
+
+    } else if (dragY >= (630 - PIN_SIZE_Y)) {
+      dragY = (630 - PIN_SIZE_Y);
+      console.log(dragY);
+
+    }
+    if (dragX <= (mapAdverts.offsetLeft - PIN_SIZE_X / 2)) {
+      dragX = (mapAdverts.offsetLeft - PIN_SIZE_X / 2);
+      console.log(dragX);
+
+    } else if (dragX >= (mapAdverts.offsetWidth - PIN_SIZE_X / 2)) {
+      dragX = mapAdverts.offsetWidth - PIN_SIZE_X / 2;
+      console.log(dragX);
+
+    }
+
+    mapPinMain.style.top = dragY + 'px';
+    mapPinMain.style.left = dragX + 'px';
+    setCoordinates(dragX, dragY);
+  };
+
+  toggleActivPage(true);
+
+  var mouseUpHandler = function (upEvt) {
+    upEvt.preventDefault();
+    document.removeEventListener('mousemove', mouseMoveHandler);
+    document.removeEventListener('mouseup', mouseUpHandler);
+
+    removePins();
+    allAds = getAds();
+    renderPins();
+  };
+
+  document.addEventListener('mousemove', mouseMoveHandler);
+  document.addEventListener('mouseup', mouseUpHandler);
+
+});
+
+/*mapPinMain.addEventListener('mouseup', function () {
   toggleActivPage(true);
   removePins();
   allAds = getAds();
   renderPins();
-});
+});*/
 
 // проверяет наличие отрисованных пинов на карте
 var removePins = function () {
