@@ -114,6 +114,8 @@ var COORDS_Y = 375;
 
 var PIN_SIZE_X = 65;
 var PIN_SIZE_Y = 84;
+var MIN_Y = 130;
+var MAX_Y = 630;
 // координаты метки при открытии страницы, взял координаты центра метки.
 var setCoordinates = function (x, y) {
   var valueX = Math.round(x + PIN_SIZE_X / 2);
@@ -131,7 +133,15 @@ var toggleActivPage = function (isActive) {
   adForm.classList[isActive ? 'remove' : 'add']('ad-form--disabled');
 
   mapAdverts.classList[isActive ? 'remove' : 'add']('map--faded');
+
+  if (isActive) {
+    removePins();
+    allAds = getAds();
+    renderPins();
+  }
 };
+
+
 
 toggleActivPage(false);
 
@@ -160,21 +170,21 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     //console.log(dragY + 'y');
     var dragX = (mapPinMain.offsetLeft - shift.x);
     //console.log(dragX + 'x');
-    if (dragY <= (130 - PIN_SIZE_Y)) {
-      dragY = (130 - PIN_SIZE_Y);
+    if (dragY <= (MIN_Y - PIN_SIZE_Y)) {
+      dragY = (MIN_Y - PIN_SIZE_Y);
       console.log(dragY);
 
-    } else if (dragY >= (630 - PIN_SIZE_Y)) {
-      dragY = (630 - PIN_SIZE_Y);
+    } else if (dragY >= (MAX_Y - PIN_SIZE_Y)) {
+      dragY = (MAX_Y - PIN_SIZE_Y);
       console.log(dragY);
 
     }
-    if (dragX <= (mapAdverts.offsetLeft - PIN_SIZE_X / 2)) {
-      dragX = (mapAdverts.offsetLeft - PIN_SIZE_X / 2);
+    if (dragX < 0) {
+      dragX = 0;
       console.log(dragX);
 
-    } else if (dragX >= (mapAdverts.offsetWidth - PIN_SIZE_X / 2)) {
-      dragX = mapAdverts.offsetWidth - PIN_SIZE_X / 2;
+    } else if (dragX >= (mapAdverts.offsetWidth - PIN_SIZE_X)) {
+      dragX = mapAdverts.offsetWidth - PIN_SIZE_X;
       console.log(dragX);
 
     }
@@ -191,9 +201,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     document.removeEventListener('mousemove', mouseMoveHandler);
     document.removeEventListener('mouseup', mouseUpHandler);
 
-    removePins();
-    allAds = getAds();
-    renderPins();
+
   };
 
   document.addEventListener('mousemove', mouseMoveHandler);
