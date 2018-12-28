@@ -2,106 +2,7 @@
 
 // нахожу блок .map
 var mapAdverts = document.querySelector('.map');
-// нахожу место, куда вставлять метку
-var pinsMap = document.querySelector('.map__pins');
-// Фиксированные значения
-var titleArr = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
-// копирую массив, чтобы передавать в функцию getUniqueItem, забирать ( удалять), по одному значению из массива на каждой итерации в цикле.
-var copyTitleArr = titleArr.concat();
-var typeArr = ['palace', 'flat', 'house', 'bungalo'];
-var featuresArr = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var photoArr = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-// максимальное значение координаты х
-var offsetWidthMap = mapAdverts.offsetWidth;
-// случайное число
-var randomInt = function (min, max) {
-  return Math.floor(min + Math.random() * (max - min));
-};
 
-// возвращает случайный удалённый элемент из массива. на каждой итерации в цикле сокращает массив ( заранее созданную копию) на одно значение.
-// arr.splice(randomIndex, 1) - массив из одного элемента, по этому [0] - вернёт значение элемента массива.
-var getUniqueItem = function (arr) {
-  var randomIndex = randomInt(0, arr.length);
-  return arr.splice(randomIndex, 1)[0];
-};
-
-// Перемешивает массив. создаю копию (arr.concat), чтобы не менять оригинальный массив
-// функция сорт сортирует массив по правилу, которое передаёт функция 0.5 - Math.random()
-var mixArr = function (arr) {
-  var copyArr = arr.concat();
-  return copyArr.sort(function () {
-    return 0.5 - Math.random();
-  });
-};
-
-// возвращает случайное значение из массива
-var getRandomItem = function (arr) {
-  return arr[randomInt(0, arr.length)];
-};
-
-// возвращает массив случайной длинны, со случайными значениями
-// создаю копию, получаю случайное количество элементов из копии массива (случайную длинну = count), создаю конечный массив
-// на каждой итераци цикла добавляю один новый элемент в массив.  получаю случайный индекс
-// получаю один случайный элемент из копии массива ( удаляя его из копии, чтобы  в дальнейшем не повторился), пушу в конечный массив
-var getRandomSplice = function (arr) {
-  var copyArr = arr.concat();
-  var count = randomInt(0, copyArr.length);
-  var result = [];
-  for (var i = 0; i < count; i++) {
-    var randomIndex = randomInt(0, copyArr.length);
-    result.push(copyArr.splice(randomIndex, 1)[0]);
-  }
-  return result;
-};
-
-// возвращает массив объектов.
-var getAds = function () {
-  var ads = [];
-  for (var i = 0; i < 8; i++) {
-    var x = randomInt(0, offsetWidthMap); // х и у получаю до пуша в массив, т.к. необходимо использовать значения в offer.address
-    var y = randomInt(130, 630); // если бы получал в location - в address вставить не получилось бы
-    ads.push({
-      author: {
-        avatar: 'img/avatars/user0' + (i + 1) + '.png'
-      },
-      offer: {
-        title: getUniqueItem(copyTitleArr),
-        address: x + ', ' + y,
-        price: randomInt(1000, 1000000),
-        type: getRandomItem(typeArr),
-        rooms: randomInt(1, 5),
-        guests: randomInt(1, 5),
-        checkin: randomInt(12, 14) + ': 00',
-        checkout: randomInt(12, 14) + ': 00',
-        features: getRandomSplice(featuresArr),
-        description: ' ',
-        photos: mixArr(photoArr)
-      },
-      location: {
-        x: x,
-        y: y
-      }
-    });
-  }
-  return ads;
-};
-
-// data.js
-
-// обработчик клика, проверяет есть ли ребёнок ( карточка объявления), если
-// есть - удаляет. Отрисовывает карточку метки, открывает её
-
-
-var allAds = [];
-
-// отрисовывает метку
-var renderPins = function () {
-  var pinFragment = document.createDocumentFragment();
-  for (var j = 0; j < allAds.length; j++) {
-    pinFragment.appendChild(window.pin.getElement(allAds[j], window.card.render));
-  }
-  pinsMap.appendChild(pinFragment);
-};
 // map.js
 // zadanie 2
 var adForm = document.querySelector('.ad-form');
@@ -135,13 +36,11 @@ var toggleActivPage = function (isActive) {
   mapAdverts.classList[isActive ? 'remove' : 'add']('map--faded');
 
   if (isActive) {
-    removePins();
-    allAds = getAds();
-    renderPins();
+    window.pin.removePins();
+    // allAds = getAds();
+    window.pin.renderPins();
   }
 };
-
-
 
 toggleActivPage(false);
 
@@ -167,26 +66,17 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     };
 
     var dragY = (mapPinMain.offsetTop - shift.y);
-    //console.log(dragY + 'y');
     var dragX = (mapPinMain.offsetLeft - shift.x);
-    //console.log(dragX + 'x');
     if (dragY <= (MIN_Y - PIN_SIZE_Y)) {
       dragY = (MIN_Y - PIN_SIZE_Y);
-      console.log(dragY);
-
     } else if (dragY >= (MAX_Y - PIN_SIZE_Y)) {
       dragY = (MAX_Y - PIN_SIZE_Y);
-      console.log(dragY);
-
     }
+
     if (dragX < 0) {
       dragX = 0;
-      console.log(dragX);
-
     } else if (dragX >= (mapAdverts.offsetWidth - PIN_SIZE_X)) {
       dragX = mapAdverts.offsetWidth - PIN_SIZE_X;
-      console.log(dragX);
-
     }
 
     mapPinMain.style.top = dragY + 'px';
@@ -200,31 +90,12 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     upEvt.preventDefault();
     document.removeEventListener('mousemove', mouseMoveHandler);
     document.removeEventListener('mouseup', mouseUpHandler);
-
-
   };
 
   document.addEventListener('mousemove', mouseMoveHandler);
   document.addEventListener('mouseup', mouseUpHandler);
 
 });
-
-/*mapPinMain.addEventListener('mouseup', function () {
-  toggleActivPage(true);
-  removePins();
-  allAds = getAds();
-  renderPins();
-});*/
-
-// проверяет наличие отрисованных пинов на карте
-var removePins = function () {
-  var pins = pinsMap.querySelectorAll('.map__pin:not(.map__pin--main)');
-  if (pins) {
-    for (var i = 0; i < pins.length; i++) {
-      pinsMap.removeChild(pins[i]);
-    }
-  }
-};
 
 // var main = document.querySelector('main');
 // var successTamplate = document.querySelector('#success').content.querySelector('.success');
@@ -288,7 +159,7 @@ var totalReset = function () {
 
   window.card.remove();
 
-  removePins();
+  window.pin.removePins();
 
   toggleActivPage(false);
 
