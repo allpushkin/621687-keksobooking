@@ -2,12 +2,40 @@
 (function () {
   var mapAdverts = document.querySelector('.map');
   // Фиксированные значения
-  var titleArr = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
+  var titleArr = [
+    'Большая уютная квартира',
+    'Маленькая неуютная квартира',
+    'Огромный прекрасный дворец',
+    'Маленький ужасный дворец',
+    'Красивый гостевой домик',
+    'Некрасивый негостеприимный домик',
+    'Уютное бунгало далеко от моря',
+    'Неуютное бунгало по колено в воде'
+  ];
   // копирую массив, чтобы передавать в функцию getUniqueItem, забирать ( удалять), по одному значению из массива на каждой итерации в цикле.
   var copyTitleArr = titleArr.concat();
-  var typeArr = ['palace', 'flat', 'house', 'bungalo'];
-  var featuresArr = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var photoArr = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+  var typeArr = [
+    'palace',
+    'flat',
+    'house',
+    'bungalo'
+  ];
+  var featuresArr = [
+    'wifi',
+    'dishwasher',
+    'parking',
+    'washer',
+    'elevator',
+    'conditioner'
+  ];
+  var photoArr = [
+    'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+    'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+  ];
+  // min & max of map
+  var MIN_Y = 130;
+  var MAX_Y = 630;
   // максимальное значение координаты х
   var offsetWidthMap = mapAdverts.offsetWidth;
   // случайное число
@@ -56,7 +84,7 @@
     var ads = [];
     for (var i = 0; i < 8; i++) {
       var x = randomInt(0, offsetWidthMap); // х и у получаю до пуша в массив, т.к. необходимо использовать значения в offer.address
-      var y = randomInt(130, 630); // если бы получал в location - в address вставить не получилось бы
+      var y = randomInt(MIN_Y, MAX_Y); // если бы получал в location - в address вставить не получилось бы
       ads.push({
         author: {
           avatar: 'img/avatars/user0' + (i + 1) + '.png'
