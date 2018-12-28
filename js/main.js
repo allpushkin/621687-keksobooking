@@ -24,7 +24,7 @@ var setCoordinates = function (x, y) {
 };
 
 setCoordinates(COORDS_X, COORDS_Y);
-// Добавляет атрибут для неактивного или неактивного состояния
+// Добавляет атрибут для активного или неактивного состояния
 var toggleActivPage = function (isActive) {
   for (var i = 0; i < adFormFieldset.length; i++) {
     adFormFieldset[i].disabled = !isActive;
@@ -35,9 +35,8 @@ var toggleActivPage = function (isActive) {
   mapAdverts.classList[isActive ? 'remove' : 'add']('map--faded');
 
   if (isActive) {
-  window.pin.removePins();
-  // allAds = getAds();
-  window.pin.renderPins();
+    window.pin.removePins();
+    window.pin.renderPins();
   }
 };
 
@@ -187,4 +186,3 @@ var submitButton = document.querySelector('.ad-form__submit');
 
 submitButton.addEventListener('click', function () {
 });
-
