@@ -10,7 +10,7 @@ var adFormFieldset = adForm.querySelectorAll('fieldset');
 
 var mapPinMain = document.querySelector('.map__pin--main');
 var addressInp = document.querySelector('#address');
-var COORDS_X = mapAdverts.offsetWidth / 2;
+var COORDS_X = 570;
 var COORDS_Y = 375;
 
 var PIN_SIZE_X = 65;
@@ -160,7 +160,8 @@ var totalReset = function () {
   window.card.remove();
 
   window.pin.removePins();
-
+  mapPinMain.style.top = COORDS_Y + 'px';
+  mapPinMain.style.left = COORDS_X + 'px';
   toggleActivPage(false);
 
   setCoordinates(COORDS_X, COORDS_Y);
