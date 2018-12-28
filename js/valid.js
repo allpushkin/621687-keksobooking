@@ -4,7 +4,7 @@
   var price = document.querySelector('.ad-form input[name=price]');
 
   // прослушивание значения инпута, при изменении значения меняются мин. и плейсхолдер
-  typeHouse.addEventListener('input', function (evt) {
+  var definesTypePrice = function (evt) {
     var targetValue = evt.target.value;
     var priceValue;
     switch (targetValue) {
@@ -23,14 +23,16 @@
     }
     price.min = priceValue;
     price.placeholder = priceValue;
-  });
+  };
+
+  typeHouse.addEventListener('input', definesTypePrice);
 
   var timeIn = document.querySelector('.ad-form select[name=timein]');
   var timeOut = document.querySelector('.ad-form select[name=timeout]');
   var timeElements = document.querySelector('.ad-form__element--time');
 
   // прослушиваю fieldset времени, применяется делигирование. при изменении одного из полей, меняется значение другого
-  timeElements.addEventListener('input', function (evt) {
+  var definesTime = function (evt) {
     var timeElem = evt.target;
     var targetValue = evt.target.value;
     var timeValue;
@@ -50,7 +52,8 @@
       timeOut.value = timeValue;
     }
     timeIn.value = timeValue;
-  });
+  };
+  timeElements.addEventListener('input', definesTime);
 
   var adForm = document.querySelector('.ad-form');
   var title = adForm.querySelector('input[name=title]');
