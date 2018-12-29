@@ -102,20 +102,17 @@
 
   // Полный сброс до исходного состояния
   var totalReset = function () {
-    resetForm();
+    adForm.reset();
 
     window.card.remove();
 
     window.pin.removePins();
     mapPinMain.style.top = COORDS_Y + 'px';
     mapPinMain.style.left = COORDS_X + 'px';
+    isActivePage = false;
     toggleActivPage(isActivePage);
 
     setCoordinates(COORDS_X, COORDS_Y);
-  };
-
-  var resetForm = function () {
-    adForm.reset();
   };
 
   // прослушивание на кнопку ресет. сброс
