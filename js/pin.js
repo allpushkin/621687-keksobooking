@@ -5,7 +5,7 @@
   // нахожу место, куда вставлять метку
   var pinsMap = document.querySelector('.map__pins');
 
-  var getElement = function (advert, cb) {
+  var getPinElement = function (advert, cb) {
     var pinElement = pinTemplate.cloneNode(true);
     pinElement.style.top = advert.location.y + 'px';
     pinElement.style.left = advert.location.x + 'px';
@@ -24,7 +24,7 @@
   var renderPins = function () {
     var pinFragment = document.createDocumentFragment();
     for (var j = 0; j < window.data.allAds.length; j++) {
-      pinFragment.appendChild(window.pin.getElement(window.data.allAds[j], window.card.render));
+      pinFragment.appendChild(getPinElement(window.data.allAds[j], window.card.render));
     }
     pinsMap.appendChild(pinFragment);
   };
@@ -40,7 +40,6 @@
   };
 
   window.pin = {
-    getElement: getElement,
     renderPins: renderPins,
     removePins: removePins
   };
