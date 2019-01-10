@@ -36,7 +36,7 @@
 
     if (isActive) {
       window.pin.removePins();
-      window.pin.renderPins();
+      window.backend.loadData();
     }
   };
 
