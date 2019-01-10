@@ -12,7 +12,7 @@
       if (xhr.status === STATUS_OK) {
         loadHandler(xhr.response);
       } else {
-      errorHandler ('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 

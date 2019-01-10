@@ -12,26 +12,26 @@
   };
 
   // функция слушает события и удаляет из разметки сообщение об ошибке
- var removeError = function () {
-  var errorElem = main.querySelector('.error');
-  var errorButton = errorElem.querySelector('.error__button');
-  var popupEcsPressHandler = function (evt) {
-    if (evt.keyCode === ESC) {
+  var removeError = function () {
+    var errorElem = main.querySelector('.error');
+    var errorButton = errorElem.querySelector('.error__button');
+    var popupEcsPressHandler = function (evt) {
+      if (evt.keyCode === ESC) {
+        main.removeChild(errorElem);
+      }
+    };
+
+    document.addEventListener('click', function () {
       main.removeChild(errorElem);
-    }
+    });
+
+    errorButton.addEventListener('ckick', function () {
+      main.removeChild(errorElem);
+    });
+
+    document.addEventListener('keydown', popupEcsPressHandler);
+
   };
-
-  document.addEventListener('click', function () {
-    main.removeChild(errorElem);
-  });
-
-  errorButton.addEventListener('ckick', function () {
-    main.removeChild(errorElem);
-  });
-
-  document.addEventListener('keydown', popupEcsPressHandler);
-
-};
 
   window.util = {
     renderError: renderError
