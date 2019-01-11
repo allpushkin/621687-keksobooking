@@ -21,6 +21,15 @@
       main.removeChild(errorElem);
       document.removeEventListener('keydown', popupEcsPressHandler);
       document.removeEventListener('keydown', popupEnterPressHandler);
+      document.removeEventListener('click', function () {
+        closeError();
+      });
+
+      errorButton.removeEventListener('click', function () {
+        closeError();
+        window.main.totalReset();
+      });
+
     };
 
     var popupEcsPressHandler = function (evt) {
@@ -38,7 +47,7 @@
       closeError();
     });
 
-    errorButton.addEventListener('ckick', function () {
+    errorButton.addEventListener('click', function () {
       closeError();
       window.main.totalReset();
     });
