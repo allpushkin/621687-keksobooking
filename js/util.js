@@ -8,9 +8,7 @@
   var renderError = function (messageError) {
     var error = errorTamplate.cloneNode(true);
     error.querySelector('p').innerHTML = messageError;
-    error.querySelector('button').setAttribute('tabindex', 1);
     main.appendChild(error);
-    var er = document.querySelector('.error');
     removeError();
   };
 
@@ -23,16 +21,8 @@
       main.removeChild(errorElem);
       window.main.totalReset();
       document.removeEventListener('keydown', popupEcsPressHandler);
-      document.removeEventListener('keydown', popupEnterPressHandler);
-      document.removeEventListener('click', function () {
-        closeError();
-      });
-
-      errorButton.removeEventListener('click', function () {
-        closeError();
-
-      });
-
+      document.removeEventListener('click', closeError);
+      errorButton.removeEventListener('click', closeError);
     };
 
     var popupEcsPressHandler = function (evt) {
@@ -40,22 +30,18 @@
         closeError();
       }
     };
-    var popupEnterPressHandler = function (evt) {
-      if (evt.keyCode === ENTER) {
-        closeError();
+
+    document.addEventListener('click', function (evt) {
+      var  value = evt.target.classList.contains('error');
+      if (value) {
+      closeError();
       }
-    };
-
-    document.addEventListener('click', function () {
-      closeError();
     });
 
-    errorButton.addEventListener('click', function () {
-      closeError();
-    });
+    errorButton.addEventListener('click', closeError);
+
 
     document.addEventListener('keydown', popupEcsPressHandler);
-    document.addEventListener('keydown', popupEnterPressHandler);
 
   };
 
