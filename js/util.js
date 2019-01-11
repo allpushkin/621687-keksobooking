@@ -20,7 +20,7 @@
       main.removeChild(errorElem);
       window.main.totalReset();
       document.removeEventListener('keydown', popupEcsPressHandler);
-      document.removeEventListener('click', closeError);
+      document.removeEventListener('click', listenerProvided);
       errorButton.removeEventListener('click', closeError);
     };
 
@@ -30,12 +30,13 @@
       }
     };
 
-    document.addEventListener('click', function (evt) {
+    var listenerProvided = function (evt) {
       var value = evt.target.classList.contains('error');
       if (value) {
         closeError();
       }
-    });
+    };
+    document.addEventListener('click', listenerProvided);
 
     errorButton.addEventListener('click', closeError);
 
