@@ -1,7 +1,6 @@
 'use strict';
 (function () {
   var ESC = 27;
-  var ENTER = 13;
   var main = document.querySelector('main');
   // var successTamplate = document.querySelector('#success').content.querySelector('.success');
   var errorTamplate = document.querySelector('#error').content.querySelector('.error');
@@ -32,9 +31,9 @@
     };
 
     document.addEventListener('click', function (evt) {
-      var  value = evt.target.classList.contains('error');
+      var value = evt.target.classList.contains('error');
       if (value) {
-      closeError();
+        closeError();
       }
     });
 
