@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var URL = 'https://js.dump.academy/keksobooking/data';
+  var URL = 'https://js.dump.academy/keksobooking/ata';
   var STATUS_OK = 200;
   var TIMEOUT = 10000;
 

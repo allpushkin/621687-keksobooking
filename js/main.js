@@ -128,6 +128,10 @@
   submitButton.addEventListener('click', function () {
   });
 
+  window.main = {
+    totalReset: totalReset
+  };
+
 })();
 
 

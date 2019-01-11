@@ -1,6 +1,7 @@
 'use strict';
 (function () {
   var ESC = 27;
+  var ENTER = 13;
   var main = document.querySelector('main');
   // var successTamplate = document.querySelector('#success').content.querySelector('.success');
   var errorTamplate = document.querySelector('#error').content.querySelector('.error');
@@ -11,25 +12,39 @@
     removeError();
   };
 
+
   // функция слушает события и удаляет из разметки сообщение об ошибке
   var removeError = function () {
     var errorElem = main.querySelector('.error');
     var errorButton = errorElem.querySelector('.error__button');
+    var closeError = function () {
+      main.removeChild(errorElem);
+      document.removeEventListener('keydown', popupEcsPressHandler);
+      document.removeEventListener('keydown', popupEnterPressHandler);
+    };
+
     var popupEcsPressHandler = function (evt) {
       if (evt.keyCode === ESC) {
-        main.removeChild(errorElem);
+        closeError();
+      }
+    };
+    var popupEnterPressHandler = function (evt) {
+      if (evt.keyCode === ENTER) {
+        closeError();
       }
     };
 
     document.addEventListener('click', function () {
-      main.removeChild(errorElem);
+      closeError();
     });
 
     errorButton.addEventListener('ckick', function () {
-      main.removeChild(errorElem);
+      closeError();
+      window.main.totalReset();
     });
 
     document.addEventListener('keydown', popupEcsPressHandler);
+    document.addEventListener('keydown', popupEnterPressHandler);
 
   };
 
