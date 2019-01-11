@@ -16,6 +16,10 @@
   var PIN_SIZE_X = 65;
   var PIN_SIZE_Y = 84;
 
+  // min & max of map
+  var MIN_Y = 130;
+  var MAX_Y = 630;
+
   // координаты метки при открытии страницы, взял координаты центра метки.
   var setCoordinates = function (x, y) {
     var valueX = Math.round(x + PIN_SIZE_X / 2);
@@ -67,10 +71,10 @@
 
       var dragY = (mapPinMain.offsetTop - shift.y);
       var dragX = (mapPinMain.offsetLeft - shift.x);
-      if (dragY <= (window.data.MIN_Y - PIN_SIZE_Y)) {
-        dragY = (window.data.MIN_Y - PIN_SIZE_Y);
-      } else if (dragY >= (window.data.MAX_Y - PIN_SIZE_Y)) {
-        dragY = (window.data.MAX_Y - PIN_SIZE_Y);
+      if (dragY <= (MIN_Y - PIN_SIZE_Y)) {
+        dragY = (MIN_Y - PIN_SIZE_Y);
+      } else if (dragY >= (MAX_Y - PIN_SIZE_Y)) {
+        dragY = (MAX_Y - PIN_SIZE_Y);
       }
 
       if (dragX < 0) {
@@ -121,11 +125,6 @@
   resetButton.addEventListener('click', function (evt) {
     evt.preventDefault();
     totalReset();
-  });
-
-  var submitButton = document.querySelector('.ad-form__submit');
-
-  submitButton.addEventListener('click', function () {
   });
 
   window.main = {
