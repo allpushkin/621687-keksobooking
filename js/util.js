@@ -8,7 +8,9 @@
   var renderError = function (messageError) {
     var error = errorTamplate.cloneNode(true);
     error.querySelector('p').innerHTML = messageError;
+    error.querySelector('button').setAttribute('tabindex', 1);
     main.appendChild(error);
+    var er = document.querySelector('.error');
     removeError();
   };
 
@@ -19,6 +21,7 @@
     var errorButton = errorElem.querySelector('.error__button');
     var closeError = function () {
       main.removeChild(errorElem);
+      window.main.totalReset();
       document.removeEventListener('keydown', popupEcsPressHandler);
       document.removeEventListener('keydown', popupEnterPressHandler);
       document.removeEventListener('click', function () {
@@ -27,7 +30,7 @@
 
       errorButton.removeEventListener('click', function () {
         closeError();
-        window.main.totalReset();
+
       });
 
     };
@@ -49,7 +52,6 @@
 
     errorButton.addEventListener('click', function () {
       closeError();
-      window.main.totalReset();
     });
 
     document.addEventListener('keydown', popupEcsPressHandler);
