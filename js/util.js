@@ -45,7 +45,17 @@
 
   };
 
+  // Функция загрузки данных и фильтрации по кол-ву пинов.
+  var allAds = [];
+  var render = function (data) {
+    allAds = data;
+    var qtyFilter = allAds.length > 5 ? 5 : allAds.length;
+    //window.filter.updatePins();
+    window.pin.renderPins(allAds, qtyFilter); // вернул временно, для отрисовки пинов. пока не разобрался с модулем фильтров
+  };
+
   window.util = {
-    renderError: renderError
+    renderError: renderError,
+    render: render
   };
 })();
