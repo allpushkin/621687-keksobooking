@@ -22,8 +22,9 @@
 
   // отрисовывает метку
   var renderPins = function (allAds) {
+    var takeNumber = allAds.length > 5 ? 5 : allAds.length;
     var pinFragment = document.createDocumentFragment();
-    for (var j = 0; j < allAds.length; j++) {
+    for (var j = 0; j < takeNumber; j++) {
       pinFragment.appendChild(getPinElement(allAds[j], window.card.render));
     }
     pinsMap.appendChild(pinFragment);
