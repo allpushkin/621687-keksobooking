@@ -12,6 +12,7 @@
     advertElement.querySelector('.popup__title').textContent = advert.offer.title;
     advertElement.querySelector('.popup__text--address').textContent = advert.offer.address;
     advertElement.querySelector('.popup__text--price').textContent = advert.offer.price + '₽/ночь';
+    advertElement.querySelector('.popup__type').textContent = advert.offer.type;
     advertElement.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
     advertElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     // прежде чем добавлять новые элементы, удаляю все старые дочерние.

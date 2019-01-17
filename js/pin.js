@@ -21,13 +21,16 @@
   };
 
   // отрисовывает метку
-  var renderPins = function (allAds) {
+  var renderPins = function (allAds, qty) {
+    removePins();
+
     var pinFragment = document.createDocumentFragment();
-    for (var j = 0; j < allAds.length; j++) {
+    for (var j = 0; j < qty; j++) {
       pinFragment.appendChild(getPinElement(allAds[j], window.card.render));
     }
     pinsMap.appendChild(pinFragment);
   };
+
 
   // проверяет наличие отрисованных пинов на карте
   var removePins = function () {

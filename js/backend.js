@@ -31,7 +31,7 @@
   };
 
   var loadData = function () {
-    load(window.pin.renderPins, window.util.renderError);
+    load(window.filter.render, window.util.renderError);
   };
 
   window.backend = {
