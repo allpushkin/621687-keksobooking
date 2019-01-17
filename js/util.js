@@ -45,25 +45,8 @@
 
   };
 
-  // Функция загрузки данных и фильтрации по кол-ву пинов.
-  var render = function (data) {
-    var filtresHandler = function () {
-      window.filter.updatePins(data);
-      //console.log(data);
-    };
-
-    var mapFilters = document.querySelector('.map__filters');
-    mapFilters.addEventListener('change', filtresHandler);
-    window.filter.updatePins(data);
-    //console.log(data);
-    //console.log(window.filter.updatePins(data));
-
-   };
-
   window.util = {
-    renderError: renderError,
-    render: render,
-    allAds: []
+    renderError: renderError
   };
 })();
 

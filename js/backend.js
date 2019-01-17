@@ -31,7 +31,7 @@
   };
 
   var loadData = function () {
-    load(window.util.render, window.util.renderError);
+    load(window.render.render, window.util.renderError);
   };
 
   window.backend = {
