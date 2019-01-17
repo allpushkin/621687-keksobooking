@@ -6,7 +6,7 @@
   var updatePins = function (allAds) {
     var filtredAds = allAds;
     if (typeFilters.value !== 'any') {
-      var filtredAds = allAds.filter(function(it) {
+        filtredAds = allAds.filter(function (it) {
         return it.offer.type === typeFilters.value;
       });
     }
@@ -15,7 +15,19 @@
     window.pin.renderPins(filtredAds, qtyFilter);
   };
 
+  // Функция загрузки данных и фильтрации по кол-ву пинов.
+  var render = function (data) {
+    var filtresHandler = function () {
+      window.filter.updatePins(data);
+    };
+
+    var mapFilters = document.querySelector('.map__filters');
+    mapFilters.addEventListener('change', filtresHandler);
+    window.filter.updatePins(data);
+   };
+
   window.filter = {
-    updatePins: updatePins
+    updatePins: updatePins,
+    render: render
   };
 })();
