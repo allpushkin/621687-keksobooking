@@ -5,24 +5,37 @@
 
   mapFilters.addEventListener('input', function (evt) {
     typeFilters.value = evt.target.value;
-    updatePins();
+    updatePins(window.util.allAds);
   });
 
 
-  var getRank = function (ads) {
+  var getRank = function (advert) {
     var rank = 0;
 
-    if (ads.advert.offer.type === typeFilters.value) {
-      rank += 1
+    if (advert.offer.type === typeFilters.value) {
+      rank += 1;
     }
 
     return rank;
   };
 
-  var updatePins = function () {
-    window.pin.renderPins(allAds.sort(function (left, right) {
+  var updatePins = function (allAds) {
+    var test = allAds.filter(function(it) {
+      return it.offer.type === typeFilters.value;
+    });
+    //window.pin.renderPins(test.concat(allAds));
+    //console.log(test);
+    /*window.pin.renderPins(allAds.sort(function (left, right) {
       return getRank(right) - getRank(left);
-    }), qtyFilter);
+    }));*/
+
+    if (test.length) {
+      console.log(1);
+      window.pin.renderPins(test);
+    } else {
+      window.pin.renderPins(allAds);
+      console.log(0);
+    }
   };
 
   window.filter = {

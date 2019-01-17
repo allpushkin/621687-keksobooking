@@ -21,7 +21,9 @@
   };
 
   // отрисовывает метку
-  var renderPins = function (allAds, qtyFilter) {
+  var renderPins = function (allAds) {
+    removePins();
+    var qtyFilter = allAds.length > 5 ? 5 : allAds.length;
     var pinFragment = document.createDocumentFragment();
     for (var j = 0; j < qtyFilter; j++) {
       pinFragment.appendChild(getPinElement(allAds[j], window.card.render));
