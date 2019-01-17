@@ -6,7 +6,7 @@
   var updatePins = function (allAds) {
     var filtredAds = allAds;
     if (typeFilters.value !== 'any') {
-        filtredAds = allAds.filter(function (it) {
+      filtredAds = allAds.filter(function (it) {
         return it.offer.type === typeFilters.value;
       });
     }
@@ -21,10 +21,9 @@
       window.filter.updatePins(data);
     };
 
-    var mapFilters = document.querySelector('.map__filters');
     mapFilters.addEventListener('change', filtresHandler);
     window.filter.updatePins(data);
-   };
+  };
 
   window.filter = {
     updatePins: updatePins,
