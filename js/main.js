@@ -134,6 +134,17 @@
 })();
 
 
+var loadHandler = function () {
+  totalReset();
+};
+
+var form = document.querySelector('.ad-form');
+
+form.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+  window.backend.save(new (FormData), window.util.renderSuccess, window.util.renderError);
+
+});
 // var main = document.querySelector('main');
 // var successTamplate = document.querySelector('#success').content.querySelector('.success');
 // var errorTamplate = document.querySelector('#error').content.querySelector('.error');
