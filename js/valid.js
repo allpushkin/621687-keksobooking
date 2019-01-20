@@ -90,4 +90,49 @@
 
   price.addEventListener('invalid', validPrice);
 
+  var rooms = document.querySelector('.ad-form select[name=rooms]');
+  var guest = document.querySelector('.ad-form select[name=capacity]');
+
+  var validGuest = function (evt) {
+    var targetValue = evt.target.value;
+    var guestValue;
+    switch(targetValue) {
+      case '1':
+        guestValue = 1;
+        break;
+      case '2':
+        guestValue = 2;
+        break;
+      case '3':
+        guestValue = 3;
+        break;
+      case '100':
+        guestValue = 0;
+        break;
+    }
+    guest.value = guestValue;
+  };
+
+  var validRooms = function (evt) {
+    var targetValue = evt.target.value;
+    var roomsValue;
+    switch(targetValue) {
+      case '1':
+        roomsValue = 1;
+        break;
+      case '2':
+        roomsValue = 2;
+        break;
+      case '3':
+        roomsValue = 3;
+        break;
+      case '0':
+        roomsValue = 100;
+        break;
+    }
+    rooms.value = roomsValue;
+  };
+
+  rooms.addEventListener('input', validGuest);
+  guest.addEventListener('input', validRooms);
 })();
