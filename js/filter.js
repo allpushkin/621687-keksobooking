@@ -51,12 +51,18 @@
 
 
 
-    if (test) {
-      console.log(test);
-    filtredAds = filtredAds.filter(function (it) {
-      return it.offer.features.join(',') === test.join(',');
-    });
-    }
+      filtredAds = filtredAds.filter(function (it) {
+        var count = 0;
+        test.forEach(function (el) {
+          count += it.offer.features.indexOf(el) > -1 ? 1 : 0;
+
+        });
+        console.log(count);
+        return count === test.length;
+      });
+
+      console.log(filtredAds);
+
 
 
     var qtyFilter = filtredAds.length > 5 ? 5 : filtredAds.length;
