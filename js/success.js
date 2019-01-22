@@ -12,13 +12,13 @@
 
   // функция слушает события и удаляет из разметки сообщение об ошибке
   var removeSuccess = function () {
-  var successElem = main.querySelector('.success');
-  var closeSuccess = function () {
-    main.removeChild(successElem);
-    window.main.totalReset();
-    document.removeEventListener('keydown', popupSuccessEcsPressHandler);
-    document.removeEventListener('click', closeSuccess);
-  };
+    var successElem = main.querySelector('.success');
+    var closeSuccess = function () {
+      main.removeChild(successElem);
+      window.main.totalReset();
+      document.removeEventListener('keydown', popupSuccessEcsPressHandler);
+      document.removeEventListener('click', closeSuccess);
+    };
 
     var popupSuccessEcsPressHandler = function (evt) {
       if (evt.keyCode === ESC) {
@@ -30,7 +30,7 @@
     document.addEventListener('keydown', popupSuccessEcsPressHandler);
   };
 
-window.success = {
-  renderSuccess: renderSuccess
-};
+  window.success = {
+    renderSuccess: renderSuccess
+  };
 })();

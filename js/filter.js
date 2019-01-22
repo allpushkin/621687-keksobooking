@@ -53,7 +53,6 @@
         count += it.offer.features.indexOf(el) > -1 ? 1 : 0;
 
       });
-      console.log(count);
       return count === test.length;
     });
 
