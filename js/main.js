@@ -140,8 +140,6 @@
 
 })();
 
-
-
 // var main = document.querySelector('main');
 // var successTamplate = document.querySelector('#success').content.querySelector('.success');
 // var errorTamplate = document.querySelector('#error').content.querySelector('.error');

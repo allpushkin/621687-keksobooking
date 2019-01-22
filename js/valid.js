@@ -96,7 +96,7 @@
   var validGuest = function (evt) {
     var targetValue = evt.target.value;
     var guestValue;
-    switch(targetValue) {
+    switch (targetValue) {
       case '1':
         guestValue = 1;
         break;
@@ -116,7 +116,7 @@
   var validRooms = function (evt) {
     var targetValue = evt.target.value;
     var roomsValue;
-    switch(targetValue) {
+    switch (targetValue) {
       case '1':
         roomsValue = 1;
         break;
