@@ -10,11 +10,11 @@
     removeSuccess();
   };
 
-  // функция слушает события и удаляет из разметки сообщение об ошибке
+  // функция слушает события и удаляет из разметки сообщение об успешной отправке
   var removeSuccess = function () {
-    var successElem = main.querySelector('.success');
+    var successElement = main.querySelector('.success');
     var closeSuccess = function () {
-      main.removeChild(successElem);
+      main.removeChild(successElement);
       window.main.totalReset();
       document.removeEventListener('keydown', popupSuccessEcsPressHandler);
       document.removeEventListener('click', closeSuccess);

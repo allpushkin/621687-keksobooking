@@ -16,10 +16,18 @@
     // слушатель на клик
     pinElement.addEventListener('click', function () {
       cb(advert);
+      removeActive();
+      pinElement.classList.add('map__pin--active');
     });
     return pinElement;
   };
 
+  var removeActive = function () {
+    var pinActive = document.querySelector('.map__pin--active');
+    if (pinActive) {
+    pinActive.classList.remove('map__pin--active');
+    }
+  };
   // отрисовывает метку
   var renderPins = function (allAds, qty) {
     removePins();

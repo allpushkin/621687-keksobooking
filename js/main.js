@@ -1,24 +1,25 @@
 'use strict';
 (function () {
-  // нахожу блок .map
-  var mapAdverts = document.querySelector('.map');
-
-  // map.js
-  // zadanie 2
-  var adForm = document.querySelector('.ad-form');
-  var adFormFieldset = adForm.querySelectorAll('fieldset');
-
-  var mapPinMain = document.querySelector('.map__pin--main');
-  var addressInp = document.querySelector('#address');
+  // Константы
   var COORDS_X = 570;
   var COORDS_Y = 375;
 
   var PIN_SIZE_X = 65;
   var PIN_SIZE_Y = 84;
-
   // min & max of map
   var MIN_Y = 130;
   var MAX_Y = 630;
+
+  // нахожу блок .map
+  var mapAdverts = document.querySelector('.map');
+
+  // map.js
+  var adForm = document.querySelector('.ad-form');
+  var adFormFieldset = adForm.querySelectorAll('fieldset');
+
+  var mapPinMain = document.querySelector('.map__pin--main');
+  var addressInp = document.querySelector('#address');
+
 
   // координаты метки при открытии страницы, взял координаты центра метки.
   var setCoordinates = function (x, y) {
@@ -139,59 +140,3 @@
   };
 
 })();
-
-// var main = document.querySelector('main');
-// var successTamplate = document.querySelector('#success').content.querySelector('.success');
-// var errorTamplate = document.querySelector('#error').content.querySelector('.error');
-
-// отрисовка сообщения об успешной отправки
-/* var renderSuccess = function () {
-  var success = successTamplate.cloneNode(true);
-  main.appendChild(success);
-  removeSuccess();
-}; */
-
-// функция слушает события и удаляет из разметки сообщение об успешной отправке
-/* var removeSuccess = function () {
-  var successElem = main.querySelector('.success');
-  var popupEcsPressHandler = function (evt) {
-    if (evt.keyCode === 27) {
-      main.removeChild(successElem);
-    }
-  };
-
-  document.addEventListener('click', function () {
-    main.removeChild(successElem);
-  });
-
-  document.addEventListener('keydown', popupEcsPressHandler);
-}; */
-
-// отрисовка сообщения об ошибке при отправке
-/* var renderError = function () {
-  var error = errorTamplate.cloneNode(true);
-  main.appendChild(error);
-  removeError();
-}; */
-
-// функция слушает события и удаляет из разметки сообщение об ошибке
-/* var removeError = function () {
-  var errorElem = main.querySelector('.error');
-  var errorButton = errorElem.querySelector('.error__button');
-  var popupEcsPressHandler = function (evt) {
-    if (evt.keyCode === 27) {
-      main.removeChild(errorElem);
-    }
-  };
-
-  document.addEventListener('click', function () {
-    main.removeChild(errorElem);
-  });
-
-  errorButton.addEventListener('ckick', function () {
-    main.removeChild(errorElem);
-  });
-
-  document.addEventListener('keydown', popupEcsPressHandler);
-
-}; */

@@ -3,7 +3,7 @@
   var ESC_KEYCODE = 27;
   // нахожу шаблон объявления
   var advertTemplate = document.querySelector('#card').content.querySelector('.map__card');
-  // нахожу блок .map и удаляю класс
+  // нахожу блок .map
   var mapAdverts = document.querySelector('.map');
   // записывает данные массива в карточку объекта
   var getCardElement = function (advert) {
