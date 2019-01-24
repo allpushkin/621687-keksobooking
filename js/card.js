@@ -7,6 +7,13 @@
   var advertTemplate = document.querySelector('#card').content.querySelector('.map__card');
   // нахожу блок .map
   var mapAdverts = document.querySelector('.map');
+  // словарь. переводит тип жилья из полученных данных на русский для вставки в карточку
+  var typeMap = {
+    'bungalo': 'Бунгало',
+    'flat': 'Квартира',
+    'house': 'Дом',
+    'palace': 'Дворец'
+  };
   // записывает данные массива в карточку объекта
   var getCardElement = function (advert) {
     var advertElement = advertTemplate.cloneNode(true);
@@ -30,8 +37,10 @@
     } else {
       advertElement.querySelector('.popup__text--price').classList.add('hidden');
     }
+
+
     if (advert.offer.type) {
-    advertElement.querySelector('.popup__type').textContent = advert.offer.type;
+    advertElement.querySelector('.popup__type').textContent = typeMap[advert.offer.type];
     } else {
       advertElement.querySelector('.popup__type').classList.add('hidden');
     }
