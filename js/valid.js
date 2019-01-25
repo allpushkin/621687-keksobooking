@@ -99,7 +99,6 @@
 
   var roomsNumberHandler = function () {
     guests.value = qtyChangeMap[rooms.value];
-console.log(String(guests.value));
     for (var i = 0; i < guests.length; i++) {
 
       if (guests.value === '0') {
@@ -110,7 +109,6 @@ console.log(String(guests.value));
     }
   };
 
-
+  roomsNumberHandler();
   rooms.addEventListener('change',  roomsNumberHandler);
-  guests.addEventListener('change', guestsHandler);
 })();
