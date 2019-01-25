@@ -34,7 +34,6 @@
   // прослушиваю fieldset времени, применяется делигирование. при изменении одного из полей, меняется значение другого
   var definesTime = function (evt) {
     var timeElement = evt.target;
-    console.log(123);
     var targetValue = evt.target.value;
     var timeValue;
 
@@ -86,6 +85,14 @@
     target.setCustomValidity(textError);
   };
 
+  var submit = document.querySelector('.ad-form__submit');
+
+  submit.addEventListener('click', resetValid);
+
+  var resetValid = function () {
+    title.setCustomValidity(textError);
+    price.setCustomValidity(textError);
+  };
   //  событие на время и цену
   title.addEventListener('invalid', validTitle);
 
@@ -95,26 +102,34 @@
   var guest = document.querySelector('.ad-form select[name=capacity]');
 
   var validGuest = function (evt) {
+    var target = evt.target;
     var targetValue = evt.target.value;
-    var guestValue;
+    var value;
+
     switch (targetValue) {
       case '1':
-        guestValue = 1;
+        value = 1;
         break;
       case '2':
-        guestValue = 2;
+        value = 2;
         break;
       case '3':
-        guestValue = 3;
+        value = 3;
+        break;
+      case '0':
+        value =  100;
         break;
       case '100':
-        guestValue = 0;
+        value = 0;
         break;
     }
-    guest.value = guestValue;
+    if (target === guest) {
+    rooms.value = value;
+    }
+    guest.value = value;
   };
 
-  var validRooms = function (evt) {
+  /*var validRooms = function (evt) {
     var targetValue = evt.target.value;
     var roomsValue;
     switch (targetValue) {
@@ -132,8 +147,8 @@
         break;
     }
     rooms.value = roomsValue;
-  };
+  };*/
 
   rooms.addEventListener('input', validGuest);
-  guest.addEventListener('input', validRooms);
+  guest.addEventListener('input', validGuest);
 })();
