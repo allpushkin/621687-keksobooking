@@ -58,8 +58,8 @@
       return count === valueInputsFeatures.length;
     });
 
-    var qtyFilter = filtredAds.length > 5 ? 5 : filtredAds.length;
-    window.pin.renderPins(filtredAds, qtyFilter);
+    var quantityFilter = filtredAds.length > 5 ? 5 : filtredAds.length;
+    window.pin.renderPins(filtredAds, quantityFilter);
   };
 
   // Функция загрузки данных и фильтрации по кол-ву пинов.

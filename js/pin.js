@@ -29,11 +29,11 @@
     }
   };
   // отрисовывает метку
-  var renderPins = function (allAds, qty) {
+  var renderPins = function (allAds, quantity) {
     removePins();
 
     var pinFragment = document.createDocumentFragment();
-    for (var j = 0; j < qty; j++) {
+    for (var j = 0; j < quantity; j++) {
       pinFragment.appendChild(getPinElement(allAds[j], window.card.render));
     }
     pinsMap.appendChild(pinFragment);

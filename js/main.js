@@ -15,7 +15,7 @@
 
   // map.js
   var adForm = document.querySelector('.ad-form');
-  var adFormFieldset = adForm.querySelectorAll('fieldset');
+  var adFormFieldsets = adForm.querySelectorAll('fieldset');
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var addressInp = document.querySelector('#address');
@@ -31,8 +31,8 @@
   setCoordinates(COORDS_X, COORDS_Y);
   // Добавляет атрибут для активного или неактивного состояния
   var toggleActivPage = function (isActive) {
-    for (var i = 0; i < adFormFieldset.length; i++) {
-      adFormFieldset[i].disabled = !isActive;
+    for (var i = 0; i < adFormFieldsets.length; i++) {
+      adFormFieldsets[i].disabled = !isActive;
     }
 
     adForm.classList[isActive ? 'remove' : 'add']('ad-form--disabled');

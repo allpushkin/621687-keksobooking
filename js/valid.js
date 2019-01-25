@@ -2,6 +2,11 @@
 (function () {
   var typeHouse = document.querySelector('.ad-form select[name=type]');
   var price = document.querySelector('.ad-form input[name=price]');
+  var PRICE_BUNGALO = 0;
+  var PRICE_FLAT = 1000;
+  var PRICE_HOUSE = 5000;
+  var PRICE_PALACE = 10000;
+
 
   // прослушивание значения инпута, при изменении значения меняются мин. и плейсхолдер
   var definesTypePrice = function (evt) {
@@ -9,16 +14,16 @@
     var priceValue;
     switch (targetValue) {
       case 'bungalo':
-        priceValue = 0;
+        priceValue = PRICE_BUNGALO;
         break;
       case 'flat':
-        priceValue = 1000;
+        priceValue = PRICE_FLAT;
         break;
       case 'house':
-        priceValue = 5000;
+        priceValue = PRICE_HOUSE;
         break;
       case 'palace':
-        priceValue = 10000;
+        priceValue = PRICE_PALACE;
         break;
     }
     price.min = priceValue;
@@ -89,7 +94,7 @@
   var rooms = document.querySelector('.ad-form select[name=rooms]');
   var guests = document.querySelector('.ad-form select[name=capacity]');
 
-  var qtyChangeMap = {
+  var quantityChangeMap = {
     '3': '3',
     '2': '2',
     '1': '1',
@@ -98,7 +103,7 @@
   };
 
   var roomsNumberHandler = function () {
-    guests.value = qtyChangeMap[rooms.value];
+    guests.value = quantityChangeMap[rooms.value];
     for (var i = 0; i < guests.length; i++) {
 
       if (guests.value === '0') {
