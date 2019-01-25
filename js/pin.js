@@ -25,7 +25,7 @@
   var removeActive = function () {
     var pinActive = document.querySelector('.map__pin--active');
     if (pinActive) {
-    pinActive.classList.remove('map__pin--active');
+      pinActive.classList.remove('map__pin--active');
     }
   };
   // отрисовывает метку

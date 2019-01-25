@@ -10,7 +10,7 @@
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
-     return fileName.endsWith(it);
+      return fileName.endsWith(it);
     });
 
     if (matches) {
@@ -29,28 +29,28 @@
   var photoAdverts = document.querySelector('.ad-form__photo-container');
 
   fileChooserAdvert.addEventListener('change', function () {
-    for (var i = 0; i < fileChooserAdvert.files.length; i++ ) {
+    for (var i = 0; i < fileChooserAdvert.files.length; i++) {
 
-    var file = fileChooserAdvert.files[i];
-    var fileName = file.name.toLowerCase();
+      var file = fileChooserAdvert.files[i];
+      var fileName = file.name.toLowerCase();
 
-    var matches = FILE_TYPES.some(function (it) {
-     return fileName.endsWith(it);
-    });
-
-    var newAdvert = previewAdvert.cloneNode(false);
-    var picture = document.createElement('img');
-    newAdvert.appendChild(picture);
-    photoAdverts.insertBefore(newAdvert, previewAdvert);
-
-    if (matches) {
-      var reader = new FileReader();
-
-      reader.addEventListener('load', function () {
-        picture.src = reader.result;
-        picture.width = 70;
-        picture.height = 70;
+      var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
       });
+
+      var newAdvert = previewAdvert.cloneNode(false);
+      var picture = document.createElement('img');
+      newAdvert.appendChild(picture);
+      photoAdverts.insertBefore(newAdvert, previewAdvert);
+
+      if (matches) {
+        var reader = new FileReader();
+
+        reader.addEventListener('load', function () {
+          picture.src = reader.result;
+          picture.width = 70;
+          picture.height = 70;
+        });
 
       reader.readAsDataURL(file);
     }

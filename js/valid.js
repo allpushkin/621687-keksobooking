@@ -110,5 +110,5 @@
   };
 
   roomsNumberHandler();
-  rooms.addEventListener('change',  roomsNumberHandler);
+  rooms.addEventListener('change', roomsNumberHandler);
 })();

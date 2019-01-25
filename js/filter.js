@@ -71,7 +71,7 @@
         window.clearTimeout(lastTimeoute);
       }
       lastTimeoute = window.setTimeout(function () {
-      window.filter.updatePins(data);
+        window.filter.updatePins(data);
       }, 500);
     };
 

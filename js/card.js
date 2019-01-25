@@ -18,39 +18,39 @@
   var getCardElement = function (advert) {
     var advertElement = advertTemplate.cloneNode(true);
     if (advert.author.avatar) {
-    advertElement.querySelector('.popup__avatar').src = advert.author.avatar;
+      advertElement.querySelector('.popup__avatar').src = advert.author.avatar;
     } else {
       advertElement.querySelector('.popup__avatar').classList.add('hidden');
     }
     if (advert.offer.title) {
-    advertElement.querySelector('.popup__title').textContent = advert.offer.title;
+      advertElement.querySelector('.popup__title').textContent = advert.offer.title;
     } else {
       advertElement.querySelector('.popup__title').classList.add('hidden');
     }
     if (advert.offer.address) {
-    advertElement.querySelector('.popup__text--address').textContent = advert.offer.address;
+      advertElement.querySelector('.popup__text--address').textContent = advert.offer.address;
     } else {
       advertElement.querySelector('.popup__text--address').classList.add('hidden');
     }
     if (advert.offer.price) {
-    advertElement.querySelector('.popup__text--price').textContent = advert.offer.price + '₽/ночь';
+      advertElement.querySelector('.popup__text--price').textContent = advert.offer.price + '₽/ночь';
     } else {
       advertElement.querySelector('.popup__text--price').classList.add('hidden');
     }
 
 
     if (advert.offer.type) {
-    advertElement.querySelector('.popup__type').textContent = typeMap[advert.offer.type];
+      advertElement.querySelector('.popup__type').textContent = typeMap[advert.offer.type];
     } else {
       advertElement.querySelector('.popup__type').classList.add('hidden');
     }
     if (advert.offer.rooms || advert.offer.guests) {
-    advertElement.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
+      advertElement.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
     } else {
       advertElement.querySelector('.popup__text--capacity').classList.add('hidden');
     }
     if (advert.offer.checkin || advert.offer.checkout) {
-    advertElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
+      advertElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     } else {
       advertElement.querySelector('.popup__text--time').classList.add('hidden');
     }
@@ -85,9 +85,9 @@
         photoElement.height = PHOTO_ELEMENT_HEIGHT;
         photoFragment.appendChild(photoElement);
       }
-  } else {
-    advertElement.querySelector('.popup__photos').classList.add('hidden');
-  }
+    } else {
+      advertElement.querySelector('.popup__photos').classList.add('hidden');
+    }
     advertElement.querySelector('.popup__photos').appendChild(photoFragment);
     var popupCloseElement = advertElement.querySelector('.popup__close');
     popupCloseElement.addEventListener('click', function () {
