@@ -6,7 +6,9 @@
   var PRICE_FLAT = 1000;
   var PRICE_HOUSE = 5000;
   var PRICE_PALACE = 10000;
-
+  var MAX_PRICE_HIGHT = 1000000;
+  var MIN_LENGHT_TITLE = 30;
+  var MAX_LENGHT_TITLE = 100;
 
   // прослушивание значения инпута, при изменении значения меняются мин. и плейсхолдер
   var definesTypePrice = function (evt) {
@@ -56,9 +58,9 @@
     var target = evt.target;
     var textError = '';
     if (target.validity.tooShort) {
-      textError = 'Минимальная длина заголовка - 30 символов';
+      textError = 'Минимальная длина заголовка - ' + MIN_LENGHT_TITLE + ' символов';
     } else if (target.validity.tooLong) {
-      textError = 'Максимальная длина заголовка — 100 символов';
+      textError = 'Максимальная длина заголовка — ' + MAX_LENGHT_TITLE + ' символов';
     } else if (target.validity.valueMissing) {
       textError = 'Обязательное поле';
     }
@@ -72,7 +74,7 @@
     if (target.validity.rangeUnderflow) {
       textError = 'Минимальная цена за ночь - ' + targetMin;
     } else if (target.validity.rangeOverflow) {
-      textError = 'Максимальная цена за ночь — 1000000';
+      textError = 'Максимальная цена за ночь — ' + MAX_PRICE_HIGHT;
     } else if (target.validity.valueMissing) {
       textError = 'Обязательное поле';
     }

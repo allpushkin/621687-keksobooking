@@ -39,7 +39,6 @@
     pinsMap.appendChild(pinFragment);
   };
 
-
   // проверяет наличие отрисованных пинов на карте
   var removePins = function () {
     var pins = pinsMap.querySelectorAll('.map__pin:not(.map__pin--main)');

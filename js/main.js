@@ -20,7 +20,6 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var addressInp = document.querySelector('#address');
 
-
   // координаты метки при открытии страницы, взял координаты центра метки.
   var setCoordinates = function (x, y) {
     var valueX = Math.round(x + PIN_SIZE_X / 2);

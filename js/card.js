@@ -38,7 +38,6 @@
       advertElement.querySelector('.popup__text--price').classList.add('hidden');
     }
 
-
     if (advert.offer.type) {
       advertElement.querySelector('.popup__type').textContent = typeMap[advert.offer.type];
     } else {

@@ -10,7 +10,6 @@
     removeError();
   };
 
-
   // функция слушает события и удаляет из разметки сообщение об ошибке
   var removeError = function () {
     var errorElement = main.querySelector('.error');
@@ -39,11 +38,8 @@
 
     errorButton.addEventListener('click', closeError);
 
-
     document.addEventListener('keydown', popupEcsPressHandler);
-
   };
-
 
   window.util = {
     renderError: renderError

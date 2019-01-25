@@ -56,5 +56,6 @@
         reader.readAsDataURL(file);
       }
     }
+
   });
 })();
