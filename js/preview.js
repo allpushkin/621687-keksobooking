@@ -35,7 +35,7 @@
       var fileName = file.name.toLowerCase();
 
       var matches = FILE_TYPES.some(function (it) {
-      return fileName.endsWith(it);
+        return fileName.endsWith(it);
       });
 
       var newAdvert = previewAdvert.cloneNode(false);
@@ -52,8 +52,8 @@
           picture.height = 70;
         });
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      }
     }
-  }
   });
 })();
