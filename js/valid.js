@@ -25,7 +25,7 @@
     price.placeholder = priceValue;
   };
 
-  typeHouse.addEventListener('input', definesTypePrice);
+  typeHouse.addEventListener('change', definesTypePrice);
 
   var timeIn = document.querySelector('.ad-form select[name=timein]');
   var timeOut = document.querySelector('.ad-form select[name=timeout]');
@@ -35,25 +35,14 @@
   var definesTime = function (evt) {
     var timeElement = evt.target;
     var targetValue = evt.target.value;
-    var timeValue;
 
-    switch (targetValue) {
-      case '12:00':
-        timeValue = '12:00';
-        break;
-      case '13:00':
-        timeValue = '13:00';
-        break;
-      case '14:00':
-        timeValue = '14:00';
-        break;
-    }
     if (timeElement === timeIn) {
-      timeOut.value = timeValue;
+      timeOut.value = targetValue;
     }
-    timeIn.value = timeValue;
+    timeIn.value = targetValue;
   };
-  timeElements.addEventListener('input', definesTime);
+
+  timeElements.addEventListener('change', definesTime);
 
   var adForm = document.querySelector('.ad-form');
   var title = adForm.querySelector('input[name=title]');
@@ -121,18 +110,7 @@ console.log(String(guests.value));
     }
   };
 
-  var guestsHandler = function () {
-    rooms.value = qtyChangeMap[guests.value];
 
-    for (var i = 0; i < rooms.length; i++) {
-      if(rooms.value === '100') {
-        rooms[i].disabled = rooms[i].value === '100' ? false : true;
-      } else {
-        rooms[i].disabled = Number(rooms[i].value) < Number(guests.value) ? true : false;
-      }
-    }
-  };
-
-  rooms.addEventListener('input',  roomsNumberHandler);
-  guests.addEventListener('input', guestsHandler);
+  rooms.addEventListener('change',  roomsNumberHandler);
+  guests.addEventListener('change', guestsHandler);
 })();
