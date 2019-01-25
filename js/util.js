@@ -2,7 +2,6 @@
 (function () {
   var ESC = 27;
   var main = document.querySelector('main');
-  // var successTamplate = document.querySelector('#success').content.querySelector('.success');
   var errorTamplate = document.querySelector('#error').content.querySelector('.error');
   var renderError = function (messageError) {
     var error = errorTamplate.cloneNode(true);
@@ -11,13 +10,12 @@
     removeError();
   };
 
-
   // функция слушает события и удаляет из разметки сообщение об ошибке
   var removeError = function () {
-    var errorElem = main.querySelector('.error');
-    var errorButton = errorElem.querySelector('.error__button');
+    var errorElement = main.querySelector('.error');
+    var errorButton = errorElement.querySelector('.error__button');
     var closeError = function () {
-      main.removeChild(errorElem);
+      main.removeChild(errorElement);
       window.main.totalReset();
       document.removeEventListener('keydown', popupEcsPressHandler);
       document.removeEventListener('click', listenerProvided);
@@ -40,9 +38,7 @@
 
     errorButton.addEventListener('click', closeError);
 
-
     document.addEventListener('keydown', popupEcsPressHandler);
-
   };
 
   window.util = {

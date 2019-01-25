@@ -16,21 +16,28 @@
     // слушатель на клик
     pinElement.addEventListener('click', function () {
       cb(advert);
+      removeActive();
+      pinElement.classList.add('map__pin--active');
     });
     return pinElement;
   };
 
+  var removeActive = function () {
+    var pinActive = document.querySelector('.map__pin--active');
+    if (pinActive) {
+      pinActive.classList.remove('map__pin--active');
+    }
+  };
   // отрисовывает метку
-  var renderPins = function (allAds, qty) {
+  var renderPins = function (allAds, quantity) {
     removePins();
 
     var pinFragment = document.createDocumentFragment();
-    for (var j = 0; j < qty; j++) {
+    for (var j = 0; j < quantity; j++) {
       pinFragment.appendChild(getPinElement(allAds[j], window.card.render));
     }
     pinsMap.appendChild(pinFragment);
   };
-
 
   // проверяет наличие отрисованных пинов на карте
   var removePins = function () {
