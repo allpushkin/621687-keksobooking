@@ -85,14 +85,13 @@
     target.setCustomValidity(textError);
   };
 
-  var submit = document.querySelector('.ad-form__submit');
-
-  submit.addEventListener('click', resetValid);
-
-  var resetValid = function () {
-    title.setCustomValidity(textError);
-    price.setCustomValidity(textError);
+  var resetValidation = function () {
+    title.setCustomValidity('');
+    price.setCustomValidity('');
   };
+  var submit = document.querySelector('.ad-form__submit');
+  submit.addEventListener('click', resetValidation);
+
   //  событие на время и цену
   title.addEventListener('invalid', validTitle);
 
@@ -101,7 +100,7 @@
   var rooms = document.querySelector('.ad-form select[name=rooms]');
   var guest = document.querySelector('.ad-form select[name=capacity]');
 
-  var validGuest = function (evt) {
+  /*var validGuest = function (evt) {
     var target = evt.target;
     var targetValue = evt.target.value;
     var value;
@@ -148,7 +147,7 @@
     }
     rooms.value = roomsValue;
   };*/
-
+/*
   rooms.addEventListener('input', validGuest);
-  guest.addEventListener('input', validGuest);
+  guest.addEventListener('input', validGuest);*/
 })();
