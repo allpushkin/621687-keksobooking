@@ -98,56 +98,41 @@
   price.addEventListener('invalid', validPrice);
 
   var rooms = document.querySelector('.ad-form select[name=rooms]');
-  var guest = document.querySelector('.ad-form select[name=capacity]');
+  var guests = document.querySelector('.ad-form select[name=capacity]');
 
-  /*var validGuest = function (evt) {
-    var target = evt.target;
-    var targetValue = evt.target.value;
-    var value;
-
-    switch (targetValue) {
-      case '1':
-        value = 1;
-        break;
-      case '2':
-        value = 2;
-        break;
-      case '3':
-        value = 3;
-        break;
-      case '0':
-        value =  100;
-        break;
-      case '100':
-        value = 0;
-        break;
-    }
-    if (target === guest) {
-    rooms.value = value;
-    }
-    guest.value = value;
+  var qtyChangeMap = {
+    '3': '3',
+    '2': '2',
+    '1': '1',
+    '100': '0',
+    '0': '100'
   };
 
-  /*var validRooms = function (evt) {
-    var targetValue = evt.target.value;
-    var roomsValue;
-    switch (targetValue) {
-      case '1':
-        roomsValue = 1;
-        break;
-      case '2':
-        roomsValue = 2;
-        break;
-      case '3':
-        roomsValue = 3;
-        break;
-      case '0':
-        roomsValue = 100;
-        break;
+  var roomsNumberHandler = function () {
+    guests.value = qtyChangeMap[rooms.value];
+console.log(String(guests.value));
+    for (var i = 0; i < guests.length; i++) {
+
+      if (guests.value === '0') {
+        guests[i].disabled = guests[i].value === '0' ? false : true;
+      } else {
+        guests[i].disabled = Number(guests[i].value) > Number(rooms.value) || guests[i].value === '0' ? true : false;
+      }
     }
-    rooms.value = roomsValue;
-  };*/
-/*
-  rooms.addEventListener('input', validGuest);
-  guest.addEventListener('input', validGuest);*/
+  };
+
+  var guestsHandler = function () {
+    rooms.value = qtyChangeMap[guests.value];
+
+    for (var i = 0; i < rooms.length; i++) {
+      if(rooms.value === '100') {
+        rooms[i].disabled = rooms[i].value === '100' ? false : true;
+      } else {
+        rooms[i].disabled = Number(rooms[i].value) < Number(guests.value) ? true : false;
+      }
+    }
+  };
+
+  rooms.addEventListener('input',  roomsNumberHandler);
+  guests.addEventListener('input', guestsHandler);
 })();
