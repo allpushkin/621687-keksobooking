@@ -24,7 +24,7 @@
     }
   });
 
-  var fileChooserAdvert = document.querySelector('.ad-form__input');
+  /*var fileChooserAdvert = document.querySelector('.ad-form__input');
   var previewAdvert = document.querySelector('.ad-form__photo img');
 
   fileChooserAdvert.addEventListener('change', function () {
@@ -44,5 +44,5 @@
 
       reader.readAsDataURL(file);
     }
-  });
+  });*/
 })();

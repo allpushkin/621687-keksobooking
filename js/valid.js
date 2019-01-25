@@ -33,7 +33,8 @@
 
   // прослушиваю fieldset времени, применяется делигирование. при изменении одного из полей, меняется значение другого
   var definesTime = function (evt) {
-    var timeElem = evt.target;
+    var timeElement = evt.target;
+    console.log(123);
     var targetValue = evt.target.value;
     var timeValue;
 
@@ -48,7 +49,7 @@
         timeValue = '14:00';
         break;
     }
-    if (timeElem === timeIn) {
+    if (timeElement === timeIn) {
       timeOut.value = timeValue;
     }
     timeIn.value = timeValue;
