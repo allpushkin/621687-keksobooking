@@ -2,6 +2,7 @@
 (function () {
   var PRICE_MIN = 10000;
   var PRICE_MAX = 50000;
+  var MAX_QUANTITY_PINS = 5;
   var mapFilters = document.querySelector('.map__filters');
   var typeFilters = mapFilters.querySelector('#housing-type');
   var priceFilters = mapFilters.querySelector('#housing-price');
@@ -58,7 +59,7 @@
       return count === valueInputsFeatures.length;
     });
 
-    var quantityFilter = filtredAds.length > 5 ? 5 : filtredAds.length;
+    var quantityFilter = filtredAds.length > MAX_QUANTITY_PINS ? MAX_QUANTITY_PINS : filtredAds.length;
     window.pin.renderPins(filtredAds, quantityFilter);
   };
 
