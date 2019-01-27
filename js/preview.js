@@ -66,16 +66,11 @@
         reader.readAsDataURL(file);
       }
     }
-
-
-
   });
 
-  var userPictures = document.querySelectorAll('.user-pictures');
-  console.log(userPictures);
+
   var test = function () {
     var userPictures = document.querySelectorAll('.user-pictures');
-  console.log(userPictures);
     for (var i = 0; i < userPictures.length; i++) {
       console.log(userPictures[i]);
       userPictures[i].remove();
