@@ -3,6 +3,7 @@
   var PRICE_MIN = 10000;
   var PRICE_MAX = 50000;
   var MAX_QUANTITY_PINS = 5;
+  var DEBOUNCE_INTERVAL = 500;
   var mapFilters = document.querySelector('.map__filters');
   var typeFilters = mapFilters.querySelector('#housing-type');
   var priceFilters = mapFilters.querySelector('#housing-price');
@@ -67,13 +68,13 @@
   var renderFilteredPins = function (data) {
     var filtresHandler = function () {
       window.card.remove();
-      var lastTimeoute;
-      if (lastTimeoute) {
-        window.clearTimeout(lastTimeoute);
+      var lastTimeout;
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
       }
-      lastTimeoute = window.setTimeout(function () {
+      lastTimeout = window.setTimeout(function () {
         window.filter.updatePins(data);
-      }, 500);
+      }, DEBOUNCE_INTERVAL);
     };
 
     mapFilters.addEventListener('change', filtresHandler);
