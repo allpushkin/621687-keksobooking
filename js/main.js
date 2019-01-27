@@ -125,7 +125,7 @@
     toggleActivPage(isActivePage);
 
     setCoordinates(COORDS_X, COORDS_Y);
-    window.preview.test();
+    window.preview.resetUserPictures();
   };
 
   // прослушивание на кнопку ресет. сброс

@@ -69,16 +69,17 @@
   });
 
 
-  var test = function () {
+  var resetUserPictures = function () {
     var userPictures = document.querySelectorAll('.user-pictures');
     for (var i = 0; i < userPictures.length; i++) {
-      console.log(userPictures[i]);
       userPictures[i].remove();
     }
+
+    avatarUpload.insertBefore(previewAvatar, avatarUpload.firstChild);
 
   };
 
   window.preview = {
-    test: test
+    resetUserPictures: resetUserPictures
   };
 })();
