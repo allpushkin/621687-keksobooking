@@ -19,6 +19,8 @@
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var addressInp = document.querySelector('#address');
+  var filtersSelects = document.querySelectorAll('.map__filters select');
+  var mapFilters = document.querySelector('.map__filters');
 
   // координаты метки при открытии страницы, взял координаты центра метки.
   var setCoordinates = function (x, y) {
@@ -28,11 +30,16 @@
   };
 
   setCoordinates(COORDS_X, COORDS_Y);
+  // переключатель для элементов форм
+  var disableFormsElements = function (elements, isActive) {
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].disabled = !isActive;
+    }
+  };
   // Добавляет атрибут для активного или неактивного состояния
   var toggleActivPage = function (isActive) {
-    for (var i = 0; i < adFormFieldsets.length; i++) {
-      adFormFieldsets[i].disabled = !isActive;
-    }
+    disableFormsElements(adFormFieldsets, isActive);
+    disableFormsElements(filtersSelects, isActive);
 
     adForm.classList[isActive ? 'remove' : 'add']('ad-form--disabled');
 
@@ -107,6 +114,7 @@
   // Полный сброс до исходного состояния
   var totalReset = function () {
     adForm.reset();
+    mapFilters.reset();
 
     window.card.remove();
 
@@ -117,6 +125,7 @@
     toggleActivPage(isActivePage);
 
     setCoordinates(COORDS_X, COORDS_Y);
+    window.preview.test();
   };
 
   // прослушивание на кнопку ресет. сброс
@@ -132,6 +141,7 @@
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(form), window.success.renderSuccess, window.util.renderError);
+    totalReset();
   });
 
   window.main = {
