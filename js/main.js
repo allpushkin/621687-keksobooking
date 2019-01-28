@@ -16,10 +16,10 @@
   // map.js
   var adForm = document.querySelector('.ad-form');
   var adFormFieldsets = adForm.querySelectorAll('fieldset');
-
   var mapPinMain = document.querySelector('.map__pin--main');
   var addressInp = document.querySelector('#address');
   var filtersSelects = document.querySelectorAll('.map__filters select');
+  var filtersFieldset = document.querySelectorAll('.map__filters fieldset');
   var mapFilters = document.querySelector('.map__filters');
 
   // координаты метки при открытии страницы, взял координаты центра метки.
@@ -40,6 +40,7 @@
   var toggleActivPage = function (isActive) {
     disableFormsElements(adFormFieldsets, isActive);
     disableFormsElements(filtersSelects, isActive);
+    disableFormsElements(filtersFieldset, isActive);
 
     adForm.classList[isActive ? 'remove' : 'add']('ad-form--disabled');
 
